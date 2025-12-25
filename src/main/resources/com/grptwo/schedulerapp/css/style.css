@@ -1,0 +1,148 @@
+.root {
+    /* primary */
+    -fx-primary-color: #735BF2;
+    -fx-primary-dark: #5548E6;
+    -fx-primary-light: #8A84FF;
+
+    /* text */
+    -fx-text-primary: #222B45;
+    -fx-text-secondary: #707070;
+    -fx-text-light: #8F9BB3;
+
+    /* bg */
+    -fx-bg-primary: #FFFFFF;
+    -fx-bg-secondary: #F5F5F5;
+    -fx-bg-tertiary: #E8E8E8;
+
+    /* alert */
+    -fx-success-color: #4CAF50;
+    -fx-error-color: #F44336;
+    -fx-warning-color: #FF9800;
+
+    /* event */
+    -fx-event-primary: #AA9CFF;
+    -fx-event-secondary: #BDB2FF;
+    -fx-event-tertiary: #D3CCFF;
+
+    /* neutral */
+    -fx-gray-100: #F8F9FA;
+    -fx-gray-200: #F0F0F0;
+    -fx-gray-300: #DDDDDD;
+    -fx-gray-400: #CCCCCC;
+    -fx-gray-500: #999999;
+    -fx-gray-600: #666666;
+    -fx-gray-900: #1A1A1A;
+
+    -fx-font-family: "Inter", "SF Pro Display", "Segoe UI", -apple-system, system-ui, sans-serif;
+    -fx-background-color: -fx-bg-primary;
+}
+
+.header {
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+}
+
+.subheader {
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-size: 16px;
+    -fx-font-weight: normal;
+}
+
+.body-text {
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+}
+
+.caption {
+    -fx-text-fill: -fx-text-light;
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+}
+
+.primary-button {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: -fx-bg-primary;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-padding: 15 40 15 40;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: -fx-primary-dark;
+}
+
+.primary-button:pressed {
+    -fx-background-color: -fx-primary-light;
+}
+
+.secondary-button {
+    -fx-background-color: -fx-bg-tertiary;
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: derive(-fx-bg-tertiary, -10%);
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 8;
+    -fx-background-radius: 8;
+}
+
+.icon-button:hover {
+    -fx-background-color: -fx-gray-100;
+}
+
+.card {
+    -fx-background-color: -fx-bg-primary;
+    -fx-background-radius: 12;
+    -fx-padding: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 2);
+}
+
+.card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 12, 0, 0, 4);
+}
+
+.text-primary {
+    -fx-text-fill: -fx-text-primary;
+}
+
+.text-secondary {
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.text-muted {
+    -fx-text-fill: -fx-text-light;
+}
+
+.text-success {
+    -fx-text-fill: -fx-success-color;
+}
+
+.text-error {
+    -fx-text-fill: -fx-error-color;
+}
+
+.text-warning {
+    -fx-text-fill: -fx-warning-color;
+}
+
+.bg-white {
+    -fx-background-color: -fx-bg-primary;
+}
+
+.bg-gray {
+    -fx-background-color: -fx-bg-secondary;
+}

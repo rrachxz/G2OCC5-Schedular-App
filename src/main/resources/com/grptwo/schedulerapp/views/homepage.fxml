@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.grptwo.schedulerapp.controllers.HomepageController"
+            stylesheets="@../css/homepage.css"
+            prefHeight="844.0" prefWidth="390.0"
+            styleClass="root">
+    <left>
+        <fx:include source="navbar.fxml" fx:id="navbar"/>
+    </left>
+
+    <center>
+        <VBox HBox.hgrow="ALWAYS" styleClass="content" prefWidth="273" minWidth="200">
+            <HBox styleClass="cal-header" alignment="CENTER" spacing="10.0" minHeight="80">
+                <padding>
+                    <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>
+                </padding>
+
+                <Button fx:id="prevBtn" styleClass="arrow-btn" onAction="#onPrevious" minWidth="40">
+                    <graphic>
+                        <FontIcon iconLiteral="bi-chevron-left" iconSize="24" />
+                    </graphic>
+                </Button>
+
+                <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                    <Label fx:id="monthLabel" text="September" styleClass="month-label"/>
+                    <Label fx:id="yearLabel" text="2025" styleClass="year-label"/>
+                </VBox>
+
+                <Button fx:id="nextBtn" styleClass="arrow-btn" onAction="#onNext" minWidth="40">
+                    <graphic>
+                        <FontIcon iconLiteral="bi-chevron-right" iconSize="24" />
+                    </graphic>
+                </Button>
+            </HBox>
+
+            <VBox styleClass="cal-container" minHeight="280" prefHeight="320" maxHeight="350">
+                <padding>
+                    <Insets left="15.0" right="15.0" bottom="10.0"/>
+                </padding>
+
+                <GridPane fx:id="dayGrid" styleClass="day-grid" hgap="2" vgap="2">
+                    <padding>
+                        <Insets bottom="8.0"/>
+                    </padding>
+
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                    </columnConstraints>
+                </GridPane>
+
+                <GridPane fx:id="calGrid" styleClass="cal-grid" hgap="2" vgap="5" prefHeight="240">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="14.28" hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <rowConstraints>
+                        <RowConstraints percentHeight="16.66" vgrow="ALWAYS" minHeight="35" maxHeight="42"/>
+                        <RowConstraints percentHeight="16.66" vgrow="ALWAYS" minHeight="35" maxHeight="42"/>
+                        <RowConstraints percentHeight="16.66" vgrow="ALWAYS" minHeight="35" maxHeight="42"/>
+                        <RowConstraints percentHeight="16.66" vgrow="ALWAYS" minHeight="35" maxHeight="42"/>
+                        <RowConstraints percentHeight="16.66" vgrow="ALWAYS" minHeight="35" maxHeight="42"/>
+                        <RowConstraints percentHeight="16.66" vgrow="ALWAYS" minHeight="35" maxHeight="42"/>
+                    </rowConstraints>
+                </GridPane>
+            </VBox>
+
+            <ScrollPane styleClass="events-scroll" VBox.vgrow="ALWAYS" fitToWidth="true" hbarPolicy="NEVER">
+                <VBox fx:id="eventsContainer" styleClass="events-container" spacing="15.0">
+                    <padding>
+                        <Insets top="20.0" bottom="100.0" left="20.0" right="20.0"/>
+                    </padding>
+                </VBox>
+            </ScrollPane>
+
+        </VBox>
+    </center>
+</BorderPane>

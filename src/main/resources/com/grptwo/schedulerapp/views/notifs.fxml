@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.grptwo.schedulerapp.controllers.NotifsController"
+      stylesheets="@../css/notifs.css"
+      alignment="CENTER"
+      VBox.vgrow="ALWAYS"
+      HBox.hgrow="ALWAYS"
+      minHeight="0"
+      minWidth="0">
+
+    <Label text="Notifs Coming Soon!!" styleClass="header"/>
+
+</VBox>

@@ -1,0 +1,112 @@
+@import "style.css";
+
+.cal-header {
+    -fx-background-color: -fx-bg-primary;
+    -fx-padding: 20;
+}
+
+.month-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.year-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: -fx-text-light;
+}
+
+.arrow-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 24px;
+    -fx-cursor: hand;
+    -fx-padding: 8;
+    -fx-background-radius: 8;
+    -fx-min-width: 40;
+}
+
+.arrow-btn:hover {
+    -fx-background-color: -fx-gray-100;
+}
+
+.arrow-btn:pressed {
+    -fx-background-color: -fx-gray-200;
+}
+
+.cal-container {
+    -fx-background-color: -fx-bg-primary;
+    -fx-padding: 10 15 15 15;
+    -fx-pref-height: 320;
+    -fx-min-height: 280;
+    -fx-max-height: 350;
+}
+
+.day-grid {
+    -fx-hgap: 2;
+    -fx-vgap: 2;
+    -fx-padding: 0 0 8 0;
+}
+
+.day-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: -fx-gray-500;
+    -fx-alignment: center;
+    -fx-font-weight: 500;
+    -fx-padding: 5 0;
+}
+
+.cal-grid {
+    -fx-hgap: 2;
+    -fx-vgap: 5;
+    -fx-pref-height: 240;
+}
+
+.day-cell {
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+    -fx-cursor: hand;
+    -fx-padding: 6 4;
+    -fx-background-radius: 8;
+    -fx-pref-height: 38;
+    -fx-min-height: 35;
+    -fx-max-height: 42;
+}
+
+.day-cell .label {
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 15px;
+    -fx-font-weight: 500;
+}
+
+.day-cell:hover {
+    -fx-background-color: -fx-gray-100;
+}
+
+.day-cell.other-month .label {
+    -fx-text-fill: -fx-gray-500;
+    -fx-opacity: 0.5;
+}
+
+.day-cell.today {
+    -fx-background-color: -fx-primary-color;
+    -fx-background-radius: 8;
+}
+
+.day-cell.today .label {
+    -fx-text-fill: -fx-bg-primary;
+    -fx-font-weight: bold;
+}
+
+.day-cell.today:hover {
+    -fx-background-color: -fx-primary-dark;
+}
+
+.day-cell.selected {
+    -fx-background-color: -fx-gray-200;
+    -fx-background-radius: 8;
+}
+
+.day-cell.selected:hover {
+    -fx-background-color: derive(-fx-gray-200, -5%);
+}

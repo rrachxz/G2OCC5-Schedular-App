@@ -1,0 +1,101 @@
+@import "style.css";
+
+.events-scroll {
+    -fx-background-color: -fx-bg-secondary;
+    -fx-border-color: transparent;
+}
+
+.events-scroll > .viewport {
+    -fx-background-color: -fx-bg-secondary;
+}
+
+.events-container {
+    -fx-background-color: -fx-bg-primary;
+}
+
+.event-card {
+    -fx-background-color: -fx-bg-primary;
+    -fx-background-radius: 12;
+    -fx-padding: 14 16 14 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 2);
+    -fx-border-color: -fx-bg-tertiary;
+    -fx-border-radius: 12;
+    -fx-cursor: hand;
+}
+
+.event-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0, 0, 4);
+}
+
+.event-time {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.event-time.primary {
+    -fx-text-fill: -fx-event-primary;
+}
+
+.event-time.secondary {
+    -fx-text-fill: -fx-event-secondary;
+}
+
+.event-time.tertiary {
+    -fx-text-fill: -fx-event-tertiary;
+}
+
+.event-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.event-desc {
+    -fx-font-size: 13px;
+    -fx-text-fill: -fx-gray-500;
+    -fx-wrap-text: true;
+}
+
+.event-link {
+    -fx-font-size: 13px;
+    -fx-text-fill: -fx-primary-color;
+    -fx-cursor: hand;
+    -fx-underline: false;
+}
+
+.event-link:hover {
+    -fx-underline: true;
+}
+
+.event-more-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-gray-400;
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+    -fx-padding: 5;
+}
+
+.event-more-btn:hover {
+    -fx-text-fill: -fx-gray-600;
+    -fx-background-color: -fx-gray-100;
+    -fx-background-radius: 6;
+}
+
+.event-dots {
+    -fx-spacing: 2;
+    -fx-alignment: center;
+    -fx-padding: 2 0 0 0;
+}
+
+.event-dot {
+    -fx-fill: -fx-event-primary;
+}
+
+.event-dot.secondary {
+    -fx-fill: -fx-event-secondary;
+}
+
+.event-dot.tertiary {
+    -fx-fill: -fx-event-primary;
+}
+

@@ -1,0 +1,75 @@
+@import "style.css";
+
+.nav {
+    -fx-background-color: -fx-bg-primary;
+    -fx-border-color: -fx-gray-200;
+    -fx-border-width: 0 1 0 0;
+    -fx-alignment: top-center;
+    -fx-end-margin: 50px;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 12;
+    -fx-background-radius: 12;
+    -fx-min-width: 56;
+    -fx-min-height: 56;
+    -fx-max-width: 56;
+    -fx-max-height: 56;
+}
+
+.nav-button:hover {
+    -fx-background-color: -fx-gray-100;
+}
+
+.nav-button:pressed {
+    -fx-background-color: -fx-primary-color;
+}
+
+.nav-button.nav-active {
+    -fx-background-color: derive(-fx-primary-color, 90%);
+}
+
+.nav-button .ikonli-font-icon {
+    -fx-icon-color: -fx-gray-500;
+}
+
+.nav-button:hover .ikonli-font-icon {
+    -fx-icon-color: -fx-primary-color;
+}
+
+.nav-button.nav-active .ikonli-font-icon {
+    -fx-icon-color: -fx-primary-color;
+}
+
+.add-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+    -fx-background-radius: 0;
+    -fx-min-width: -1;
+    -fx-min-height: -1;
+    -fx-max-width: -1;
+    -fx-max-height: -1;
+}
+
+.add-button:hover {
+    -fx-background-color: transparent;
+}
+
+.add-button:pressed {
+    -fx-background-color: transparent;
+}
+
+.add-button .ikonli-font-icon {
+    -fx-icon-color: -fx-primary-color;
+}
+
+.add-button:hover .ikonli-font-icon {
+    -fx-icon-color: -fx-primary-dark;
+}
+
+.add-button:pressed .ikonli-font-icon {
+    -fx-icon-color: -fx-primary-dark;
+}

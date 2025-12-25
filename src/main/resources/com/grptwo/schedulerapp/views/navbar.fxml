@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.grptwo.schedulerapp.controllers.NavbarController"
+      stylesheets="@../css/navbar.css"
+      styleClass="nav"
+      prefWidth="117"
+      minWidth="117">
+
+    <padding>
+        <Insets top="20.0" left="10.0" right="10.0" bottom="20.0"/>
+    </padding>
+
+    <VBox spacing="15" alignment="TOP_CENTER">
+        <Button fx:id="calendarBtn" styleClass="nav-button" onAction="#onCalendarClick" maxWidth="Infinity">
+            <graphic>
+                <FontIcon iconLiteral="bi-calendar4" iconSize="20" />
+            </graphic>
+        </Button>
+
+        <Button fx:id="bellBtn" styleClass="nav-button" onAction="#onBellClick" maxWidth="Infinity">
+            <graphic>
+                <FontIcon iconLiteral="bi-bell" iconSize="20" />
+            </graphic>
+        </Button>
+
+        <Button fx:id="profileBtn" styleClass="nav-button" onAction="#onProfileClick" maxWidth="Infinity">
+            <graphic>
+                <FontIcon iconLiteral="bi-person" iconSize="24" />
+            </graphic>
+        </Button>
+
+        <Button fx:id="addBtn" styleClass="add-button" onAction="#onAddClick" maxWidth="Infinity">
+            <graphic>
+                <FontIcon iconLiteral="bi-plus-square-fill" iconSize="35" />
+            </graphic>
+        </Button>
+
+    </VBox>
+</VBox>

@@ -1,0 +1,7 @@
+@import "style.css";
+
+.header {
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+}

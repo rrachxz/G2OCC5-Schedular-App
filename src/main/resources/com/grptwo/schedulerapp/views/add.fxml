@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.grptwo.schedulerapp.controllers.AddController"
+      stylesheets="@../css/add.css"
+      styleClass="root">
+
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <Text text="Add New Event" styleClass="title"/>
+
+    <VBox spacing="20">
+        <VBox.margin>
+            <Insets top="30"/>
+        </VBox.margin>
+
+        <TextField fx:id="nameField" promptText="Event name" styleClass="input-field"/>
+        <TextField fx:id="descField" promptText="Description" styleClass="input-field"/>
+
+
+        <TextArea fx:id="noteArea" promptText="Type the note here..."
+                  styleClass="note-area" wrapText="true" prefRowCount="4"/>
+
+        <DatePicker fx:id="datePicker" promptText="Date" styleClass="date-picker"
+                    prefWidth="Infinity"/>
+
+        <HBox spacing="15">
+            <TextField fx:id="startField" promptText="Start time" styleClass="time-field"
+                       HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="endField" promptText="End time" styleClass="time-field"
+                       HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label text="Remind me" styleClass="remind-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ToggleButton fx:id="remindToggle" styleClass="toggle-btn"/>
+        </HBox>
+
+        <Button fx:id="createBtn" text="Create Event" styleClass="create-btn"
+                onAction="#onCreate" maxWidth="Infinity">
+            <VBox.margin>
+                <Insets top="10"/>
+            </VBox.margin>
+        </Button>
+    </VBox>
+</VBox>

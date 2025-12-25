@@ -1,0 +1,43 @@
+@import "style.css";
+
+.title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-fill: -fx-text-primary;
+}
+
+.dev-card {
+    -fx-background-color: -fx-bg-primary;
+    -fx-border-color: -fx-gray-200;
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-padding: 15px 20px;
+    -fx-spacing: 15px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-width: 350px;
+    -fx-cursor: hand;
+}
+
+.dev-card:hover {
+    -fx-border-color: -fx-primary-color;
+}
+
+.dev-card:hover .dev-name {
+    -fx-text-fill: -fx-primary-dark;
+}
+
+.dev-card:hover .dev-role {
+    -fx-text-fill: -fx-primary-light;
+}
+
+.dev-name {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.dev-role {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-gray-600;
+}

@@ -1,0 +1,90 @@
+@import "style.css";
+
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-fill: -fx-text-primary;
+}
+
+.input-field, .note-area, .time-field{
+    -fx-background-color: -fx-bg-primary;
+    -fx-border-color: -fx-gray-400;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: -fx-gray-600;
+}
+
+.input-field:focused, .note-area:focused, .time-field:focused{
+    -fx-border-color: -fx-primary-color;
+    -fx-border-width: 2px;
+}
+
+.note-area {
+    -fx-min-height: 100px;
+}
+
+.date-picker {
+    -fx-background-color: -fx-bg-primary-color;
+    -fx-border-color: -fx-gray-400;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.date-picker .text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 12px;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: -fx-gray-600;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 12px 0 0;
+}
+
+.date-picker:focused{
+    -fx-border-color: -fx-primary-color;
+    -fx-border-width: 2px;
+}
+
+.time-field {
+    -fx-pref-width: 150px;
+}
+
+.remind-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.toggle-btn {
+    -fx-background-color: -fx-gray-400;
+    -fx-background-radius: 20px;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 28px;
+    -fx-cursor: hand;
+}
+
+.toggle-btn:selected {
+    -fx-background-color: -fx-bg-primary;
+}
+
+.create-btn {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: -fx-bg-primary;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+    -fx-padding: 15px;
+    -fx-cursor: hand;
+}
+
+.create-btn:hover {
+    -fx-background-color: -fx-primary-dark;
+}
+
+.create-btn:pressed {
+    -fx-background-color: -fx-primary-dark;
+}
