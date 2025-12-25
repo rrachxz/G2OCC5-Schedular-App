@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b205a62f-181a-4136-82cd-4111ee0b320e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/Launcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/AddController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/EventsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/HomepageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/NavbarController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/NotifsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/ProfileController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/models/Events.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/models/Recurrance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/add.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/calendar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/events.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/homepage.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/navbar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/notifs.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/profile.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/welcome.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/data/events.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/data/recurrance.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/imgs/avatar.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/add.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/homepage.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/navbar.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/notifs.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/onboarding.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/profiles.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/G2OCC5-Schedular-App.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="CSS File" />
+        <option value="FxmlFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;rrachxz&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/rrachxz/G2OCC5-Schedular-App&quot;,
+    &quot;accountId&quot;: &quot;e32c1093-54d0-4de6-8187-e65ed5650d54&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="37KPy2Du1OTJFHL4Y3phSMYPhWP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/imgs" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28238.7" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28238.7" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b205a62f-181a-4136-82cd-4111ee0b320e" name="Changes" comment="" />
+      <created>1766649041004</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1766649041004</updated>
+      <workItem from="1766649042003" duration="5124000" />
+      <workItem from="1766673593655" duration="300000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
