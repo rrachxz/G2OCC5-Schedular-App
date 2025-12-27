@@ -26,7 +26,7 @@
 }
 
 .date-picker {
-    -fx-background-color: -fx-bg-primary-color;
+    -fx-background-color: -fx-bg-primary;
     -fx-border-color: -fx-gray-400;
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
