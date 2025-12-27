@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.grptwo.schedulerapp.controllers.EventsController"
+            styleClass="events-scroll"
+            VBox.vgrow="ALWAYS"
+            fitToWidth="true"
+            hbarPolicy="NEVER">
+
+    <VBox fx:id="eventsContainer" styleClass="events-container" spacing="15.0">
+        <padding>
+            <Insets top="20.0" bottom="100.0" left="20.0" right="20.0"/>
+        </padding>
+    </VBox>
+
+</ScrollPane>
