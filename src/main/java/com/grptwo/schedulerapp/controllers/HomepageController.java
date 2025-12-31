@@ -2,8 +2,6 @@ package com.grptwo.schedulerapp.controllers;
 
 import com.grptwo.schedulerapp.models.Events;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
@@ -13,39 +11,21 @@ public class HomepageController {
 
     public VBox navbar;
     public VBox calendar;
-    public ScrollPane events;
 
     @FXML private CalendarController calendarController;
     @FXML private EventsController eventsController;
+    @FXML private NavbarController navbarController;
 
     private final Map<LocalDate, List<Events>> eventsMap = new HashMap<>();
 
     @FXML
     public void initialize() {
-        loadEvents();
-
         calendarController.init(eventsMap, this::onDateChange);
-        eventsController.init(eventsMap, this::onEventsUpdate);
+        eventsController.init(eventsMap, this::onEventsUpdate, this::openEditPage);
+
+        navbarController.setHomepageController(this);
 
         eventsController.updateEvents(calendarController.getSelected());
-    }
-
-    private void loadEvents() {
-        LocalDate today = LocalDate.now();
-
-        Events e1 = new Events(1, "go to cinema with rara", "we're gonna watch avengers doomsday",
-                today.atTime(10, 0), today.atTime(13, 0));
-        Events e2 = new Events(2, "cooking with keisha", "learn how to cook a fried rice",
-                today.atTime(10, 0), today.atTime(13, 0));
-        Events e3 = new Events(3, "studying with liz", "learn abt math and cso",
-                today.atTime(10, 0), today.atTime(13, 0));
-
-        eventsMap.put(today, Arrays.asList(e1, e2, e3));
-        eventsMap.put(today.plusDays(1), Arrays.asList(e1));
-        eventsMap.put(today.plusDays(2), Arrays.asList(e1, e2));
-        eventsMap.put(today.plusDays(4), Arrays.asList(e2));
-        eventsMap.put(today.plusDays(8), Arrays.asList(e1));
-        eventsMap.put(today.plusDays(9), Arrays.asList(e1, e2, e3));
     }
 
     private void onDateChange() {
@@ -56,13 +36,59 @@ public class HomepageController {
         calendarController.updateCal();
     }
 
+    public void openEditPage(Events event) {
+        navbarController.loadAddView(calendarController.getSelected(), event);
+    }
+
     public void addEvent(Events event) {
+        if (event == null) return;
+
         LocalDate date = event.getStartDateTime().toLocalDate();
+
         if (!eventsMap.containsKey(date)) {
             eventsMap.put(date, new ArrayList<>());
         }
+
+        int maxId = eventsMap.values().stream()
+                .flatMap(List::stream)
+                .mapToInt(Events::getId)
+                .max()
+                .orElse(0);
+        event.setId(maxId + 1);
+
         eventsMap.get(date).add(event);
+
         onEventsUpdate();
         eventsController.updateEvents(calendarController.getSelected());
+    }
+
+    public void updateEvent(Events oldEvent, Events newEvent) {
+        if (oldEvent == null || newEvent == null) return;
+
+        for (Map.Entry<LocalDate, List<Events>> entry : eventsMap.entrySet()) {
+            List<Events> list = entry.getValue();
+            if (list.contains(oldEvent)) {
+                list.remove(oldEvent);
+                if (list.isEmpty()) {
+                    eventsMap.remove(entry.getKey());
+                }
+                break;
+            }
+        }
+
+        newEvent.setId(oldEvent.getId());
+        LocalDate date = newEvent.getStartDateTime().toLocalDate();
+
+        if (!eventsMap.containsKey(date)) {
+            eventsMap.put(date, new ArrayList<>());
+        }
+        eventsMap.get(date).add(newEvent);
+
+        onEventsUpdate();
+        eventsController.updateEvents(calendarController.getSelected());
+    }
+
+    public void returnToCalendar() {
+        navbarController.onCalendarClick();
     }
 }

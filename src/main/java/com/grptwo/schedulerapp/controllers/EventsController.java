@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 public class EventsController {
 
@@ -22,17 +24,19 @@ public class EventsController {
     private Map<LocalDate, List<Events>> eventsMap;
     private LocalDate selected;
     private Runnable onUpdate;
+    private Consumer<Events> onEdit;
 
-    public void init(Map<LocalDate, List<Events>> eventsMap, Runnable onUpdate) {
+    public void init(Map<LocalDate, List<Events>> eventsMap, Runnable onUpdate, Consumer<Events> onEdit) {
         this.eventsMap = eventsMap;
         this.onUpdate = onUpdate;
+        this.onEdit = onEdit;
     }
 
     public void updateEvents(LocalDate date) {
         this.selected = date;
         eventsContainer.getChildren().clear();
 
-        if (!eventsMap.containsKey(selected)) {
+        if (!eventsMap.containsKey(selected) || eventsMap.get(selected).isEmpty()) {
             Label noEvents = new Label("No events scheduled");
             noEvents.getStyleClass().add("text-muted");
             noEvents.setStyle("-fx-font-size: 14px; -fx-padding: 20 0 0 0;");
@@ -64,7 +68,7 @@ public class EventsController {
         if (style.equals("event-secondary")) dot.getStyleClass().add("secondary");
         if (style.equals("event-tertiary")) dot.getStyleClass().add("tertiary");
 
-        Label time = new Label(getTime(event.getStartDateTime()) + "-" + getTime(event.getEndDateTime()));
+        Label time = new Label(getTime(event.getStartDateTime()) + " - " + getTime(event.getEndDateTime()));
         time.getStyleClass().addAll("event-time", style);
         timeBox.getChildren().addAll(dot, time);
 
@@ -75,16 +79,22 @@ public class EventsController {
         HBox descBox = new HBox(5);
         descBox.setAlignment(Pos.CENTER_LEFT);
 
-        Label desc = new Label(event.getDesc());
+        String description = event.getDesc();
+        if (description == null || description.isEmpty()) {
+            description = "No description";
+        }
+
+        Label desc = new Label(description);
         desc.getStyleClass().add("event-desc");
         desc.setMaxWidth(180);
 
-        if (event.getDesc().length() > 40) {
-            desc.setText(event.getDesc().substring(0, 37) + "...");
+        if (description.length() > 40) {
+            desc.setText(description.substring(0, 37) + "...");
             Hyperlink more = new Hyperlink("View more");
             more.getStyleClass().add("event-link");
+            final String fullDesc = description;
             more.setOnAction(e -> {
-                desc.setText(event.getDesc());
+                desc.setText(fullDesc);
                 desc.setWrapText(true);
                 more.setVisible(false);
             });
@@ -109,14 +119,28 @@ public class EventsController {
         MenuItem delete = new MenuItem("Delete");
 
         edit.setOnAction(e -> editEvent(event));
-        delete.setOnAction(e -> deleteEvent(event));
+        delete.setOnAction(e -> confirmDelete(event));
 
         menu.getItems().addAll(edit, delete);
-        menu.show(btn, 0, btn.getHeight());
+        menu.show(btn, javafx.geometry.Side.BOTTOM, 0, 0);
     }
 
     private void editEvent(Events event) {
-        System.out.println("editing: " + event.getTitle());
+        if (onEdit != null) {
+            onEdit.accept(event);
+        }
+    }
+
+    private void confirmDelete(Events event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Event");
+        alert.setHeaderText("Delete \"" + event.getTitle() + "\"?");
+        alert.setContentText("This action cannot be undone.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            deleteEvent(event);
+        }
     }
 
     private void deleteEvent(Events event) {
@@ -124,7 +148,9 @@ public class EventsController {
             List<Events> list = entry.getValue();
             if (list.contains(event)) {
                 list.remove(event);
-                if (list.isEmpty()) eventsMap.remove(entry.getKey());
+                if (list.isEmpty()) {
+                    eventsMap.remove(entry.getKey());
+                }
                 break;
             }
         }
@@ -133,7 +159,7 @@ public class EventsController {
     }
 
     private String getTime(LocalDateTime dt) {
-        if (dt == null) return "";
+        if (dt == null) return "00:00";
         return dt.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
 }
