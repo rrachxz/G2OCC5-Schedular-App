@@ -21,6 +21,7 @@ public class HomepageController {
     @FXML
     public void initialize() {
         calendarController.init(eventsMap, this::onDateChange);
+        calendarController.setOnAddEventRequest(this::openAddPage);  // NEW LINE
         eventsController.init(eventsMap, this::onEventsUpdate, this::openEditPage);
 
         navbarController.setHomepageController(this);
@@ -34,6 +35,10 @@ public class HomepageController {
 
     private void onEventsUpdate() {
         calendarController.updateCal();
+    }
+
+    public void openAddPage() {
+        navbarController.loadAddView(calendarController.getSelected(), null);
     }
 
     public void openEditPage(Events event) {

@@ -3,7 +3,9 @@ package com.grptwo.schedulerapp.controllers;
 import com.grptwo.schedulerapp.models.Events;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -17,6 +19,7 @@ import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 public class CalendarController {
 
@@ -31,6 +34,7 @@ public class CalendarController {
     private LocalDate selected;
     private Map<LocalDate, List<Events>> eventsMap;
     private Runnable onDateChange;
+    private Runnable onAddEventRequest;
 
     public void init(Map<LocalDate, List<Events>> eventsMap, Runnable onDateChange) {
         this.eventsMap = eventsMap;
@@ -39,6 +43,10 @@ public class CalendarController {
         this.selected = LocalDate.now();
         setupDays();
         updateCal();
+    }
+
+    public void setOnAddEventRequest(Runnable onAddEventRequest) {
+        this.onAddEventRequest = onAddEventRequest;
     }
 
     private void setupDays() {
@@ -123,11 +131,31 @@ public class CalendarController {
             selected = date;
             updateCal();
             if (onDateChange != null) onDateChange.run();
+            showAddEventDialog(date);
         });
 
         GridPane.setHgrow(cell, Priority.ALWAYS);
         GridPane.setVgrow(cell, Priority.ALWAYS);
         calGrid.add(cell, col, row);
+    }
+
+    private void showAddEventDialog(LocalDate date) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Add Event");
+        alert.setHeaderText("Add event on " + date.format(java.time.format.DateTimeFormatter.ofPattern("MMMM d, yyyy")) + "?");
+        alert.setContentText("Would you like to create a new event for this date?");
+
+        ButtonType addButton = new ButtonType("Add Event");
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonType.CANCEL.getButtonData());
+
+        alert.getButtonTypes().setAll(addButton, cancelButton);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == addButton) {
+            if (onAddEventRequest != null) {
+                onAddEventRequest.run();
+            }
+        }
     }
 
     @FXML
