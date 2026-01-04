@@ -143,7 +143,6 @@ public class CalendarController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Add Event");
         alert.setHeaderText("Add event on " + date.format(java.time.format.DateTimeFormatter.ofPattern("MMMM d, yyyy")) + "?");
-        alert.setContentText("Would you like to create a new event for this date?");
 
         ButtonType addButton = new ButtonType("Add Event");
         ButtonType cancelButton = new ButtonType("Cancel", ButtonType.CANCEL.getButtonData());

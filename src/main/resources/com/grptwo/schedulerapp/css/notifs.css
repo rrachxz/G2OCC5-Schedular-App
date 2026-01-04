@@ -48,7 +48,7 @@
 }
 
 .notif-type {
-    -fx-font-size: 11px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: -fx-primary-color;
 }

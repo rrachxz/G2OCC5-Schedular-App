@@ -12,7 +12,7 @@
       styleClass="notifs-page"
       spacing="0">
 
-    <VBox styleClass="notifs-header">
+    <VBox styleClass="notifs-header" alignment="CENTER">
         <padding>
             <Insets top="30" right="30" bottom="20" left="30"/>
         </padding>

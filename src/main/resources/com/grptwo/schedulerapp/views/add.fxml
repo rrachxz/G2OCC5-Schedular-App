@@ -9,7 +9,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.grptwo.schedulerapp.controllers.AddController"
       stylesheets="@../css/add.css"
-      styleClass="root">
+      styleClass="root" alignment="TOP_CENTER">
 
     <padding>
         <Insets top="30" right="30" bottom="30" left="30"/>
@@ -24,10 +24,6 @@
 
         <TextField fx:id="nameField" promptText="Event name" styleClass="input-field"/>
         <TextField fx:id="descField" promptText="Description" styleClass="input-field"/>
-
-
-        <TextArea fx:id="noteArea" promptText="Type the note here..."
-                  styleClass="note-area" wrapText="true" prefRowCount="4"/>
 
         <DatePicker fx:id="datePicker" promptText="Date" styleClass="date-picker"
                     prefWidth="Infinity"/>

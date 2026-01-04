@@ -1,7 +1,7 @@
 @import "style.css";
 
 .title {
-    -fx-font-size: 32px;
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
     -fx-fill: -fx-text-primary;
 }

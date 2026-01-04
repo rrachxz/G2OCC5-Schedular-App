@@ -19,7 +19,6 @@ public class NavbarController {
 
     private Node homepageContent;
     private HomepageController homepageController;
-    private NotifsController notifsController;
 
     @FXML
     public void initialize() {
@@ -70,7 +69,7 @@ public class NavbarController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/grptwo/schedulerapp/views/notifs.fxml"));
             Node newContent = loader.load();
 
-            notifsController = loader.getController();
+            NotifsController notifsController = loader.getController();
             if (notifsController != null && homepageController != null) {
                 notifsController.init(homepageController.getEventsMap());
             }

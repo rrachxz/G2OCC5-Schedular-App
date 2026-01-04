@@ -10,14 +10,13 @@ import java.time.LocalTime;
 
 public class AddController {
 
-    @FXML public TextField nameField;
-    @FXML public TextField descField;
-    @FXML public TextArea noteArea;
-    @FXML public DatePicker datePicker;
-    @FXML public TextField startField;
-    @FXML public TextField endField;
-    @FXML public ToggleButton remindToggle;
-    @FXML public Button createBtn;
+    public TextField nameField;
+    public TextField descField;
+    public TextArea noteArea;
+    public DatePicker datePicker;
+    public TextField startField;
+    public TextField endField;
+    public Button createBtn;
 
     private Events newEvent;
     private Events editingEvent;
@@ -102,10 +101,7 @@ public class AddController {
             LocalDateTime startDt = LocalDateTime.of(date, startTime);
             LocalDateTime endDt = LocalDateTime.of(date, endTime);
 
-            String description = noteArea.getText();
-            if (description == null || description.trim().isEmpty()) {
-                description = descField.getText();
-            }
+            String description = descField.getText();
             if (description == null) {
                 description = "";
             }

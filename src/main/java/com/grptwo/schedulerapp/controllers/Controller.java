@@ -22,7 +22,7 @@ public class Controller {
 
             Scene scene = new Scene(fxmlLoader.load(), 902, 1255);
             stage.setScene(scene);
-            stage.setTitle("Home Page");
+            stage.setTitle("G2OCC5 Scheduler App");
 
         } catch (IOException e) {
             e.printStackTrace();
