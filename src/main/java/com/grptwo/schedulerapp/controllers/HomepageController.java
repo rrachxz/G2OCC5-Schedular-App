@@ -21,11 +21,9 @@ public class HomepageController {
     @FXML
     public void initialize() {
         calendarController.init(eventsMap, this::onDateChange);
-        calendarController.setOnAddEventRequest(this::openAddPage);  // NEW LINE
+        calendarController.setOnAddEventRequest(this::openAddPage);
         eventsController.init(eventsMap, this::onEventsUpdate, this::openEditPage);
-
         navbarController.setHomepageController(this);
-
         eventsController.updateEvents(calendarController.getSelected());
     }
 
@@ -95,5 +93,9 @@ public class HomepageController {
 
     public void returnToCalendar() {
         navbarController.onCalendarClick();
+    }
+
+    public Map<LocalDate, List<Events>> getEventsMap() {
+        return eventsMap;
     }
 }

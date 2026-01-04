@@ -1,7 +1,98 @@
 @import "style.css";
 
-.header {
-    -fx-text-fill: -fx-text-primary;
-    -fx-font-size: 32px;
+.notifs-page {
+    -fx-background-color: -fx-bg-secondary;
+}
+
+.notifs-header {
+    -fx-background-color: -fx-bg-primary;
+    -fx-border-color: -fx-gray-200;
+    -fx-border-width: 0 0 1 0;
+}
+
+.page-title {
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
+    -fx-fill: -fx-text-primary;
+}
+
+.page-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-light;
+    -fx-padding: 5 0 0 0;
+}
+
+.notifs-scroll {
+    -fx-background-color: -fx-bg-primary;
+    -fx-border-color: transparent;
+}
+
+.notifs-scroll > .viewport {
+    -fx-background-color: -fx-bg-primary;
+}
+
+.notifs-container {
+    -fx-background-color: -fx-bg-primary;
+}
+
+.notif-card {
+    -fx-background-color: -fx-bg-primary;
+    -fx-background-radius: 12;
+    -fx-padding: 16 18;
+    -fx-border-width: 0 0 0 4;
+    -fx-border-radius: 12 0 0 12;
+    -fx-border-color: -fx-primary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 2);
+}
+
+.notif-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 12, 0, 0, 4);
+}
+
+.notif-dot {
+    -fx-fill: -fx-primary-color;
+}
+
+.notif-type {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+}
+
+.notif-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+    -fx-wrap-text: true;
+}
+
+.notif-time {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.notif-date {
+    -fx-font-size: 13px;
+    -fx-text-fill: -fx-text-light;
+}
+
+.notif-delete-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-gray-400;
+    -fx-font-size: 24px;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+    -fx-min-width: 30;
+    -fx-min-height: 30;
+    -fx-background-radius: 15;
+}
+
+.notif-delete-btn:hover {
+    -fx-background-color: -fx-gray-100;
+    -fx-text-fill: -fx-primary-color;
+}
+
+.notif-delete-btn:pressed {
+    -fx-background-color: -fx-gray-200;
 }

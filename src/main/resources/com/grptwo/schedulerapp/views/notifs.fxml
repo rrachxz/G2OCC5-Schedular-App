@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.grptwo.schedulerapp.controllers.NotifsController"
       stylesheets="@../css/notifs.css"
-      alignment="CENTER"
-      VBox.vgrow="ALWAYS"
-      HBox.hgrow="ALWAYS"
-      minHeight="0"
-      minWidth="0">
+      styleClass="notifs-page"
+      spacing="0">
 
-    <Label text="Notifs Coming Soon!!" styleClass="header"/>
+    <VBox styleClass="notifs-header">
+        <padding>
+            <Insets top="30" right="30" bottom="20" left="30"/>
+        </padding>
+        <Text text="Notifications" styleClass="page-title"/>
+        <Label text="Your upcoming events and reminders" styleClass="page-subtitle"/>
+    </VBox>
+
+    <ScrollPane styleClass="notifs-scroll" fitToWidth="true"
+                hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+        <VBox fx:id="notifsContainer" styleClass="notifs-container" spacing="15">
+            <padding>
+                <Insets top="10" right="30" bottom="30" left="30"/>
+            </padding>
+        </VBox>
+    </ScrollPane>
 
 </VBox>

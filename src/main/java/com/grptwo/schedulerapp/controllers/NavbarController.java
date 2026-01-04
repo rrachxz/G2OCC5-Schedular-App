@@ -19,6 +19,7 @@ public class NavbarController {
 
     private Node homepageContent;
     private HomepageController homepageController;
+    private NotifsController notifsController;
 
     @FXML
     public void initialize() {
@@ -55,7 +56,31 @@ public class NavbarController {
     @FXML
     public void onBellClick() {
         setActiveNavButton(bellBtn);
-        loadView("/com/grptwo/schedulerapp/views/notifs.fxml");
+        loadNotifsView();
+    }
+
+    public void loadNotifsView() {
+        try {
+            BorderPane mainContainer = (BorderPane) calendarBtn.getScene().getRoot();
+            if (mainContainer == null) {
+                System.err.println("Main container is null!");
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/grptwo/schedulerapp/views/notifs.fxml"));
+            Node newContent = loader.load();
+
+            notifsController = loader.getController();
+            if (notifsController != null && homepageController != null) {
+                notifsController.init(homepageController.getEventsMap());
+            }
+
+            mainContainer.setCenter(newContent);
+
+        } catch (IOException e) {
+            System.err.println("Error loading notifs view:");
+            e.printStackTrace();
+        }
     }
 
     @FXML
