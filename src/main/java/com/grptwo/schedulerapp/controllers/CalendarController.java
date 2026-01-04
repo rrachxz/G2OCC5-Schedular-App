@@ -15,6 +15,7 @@ import javafx.scene.shape.Circle;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
@@ -31,7 +32,7 @@ public class CalendarController {
     public GridPane calGrid;
 
     private YearMonth currentMonth;
-    private LocalDate selected;
+    private LocalDate selectedDate;
     private Map<LocalDate, List<Events>> eventsMap;
     private Runnable onDateChange;
     private Runnable onAddEventRequest;
@@ -40,8 +41,8 @@ public class CalendarController {
         this.eventsMap = eventsMap;
         this.onDateChange = onDateChange;
         this.currentMonth = YearMonth.now();
-        this.selected = LocalDate.now();
-        setupDays();
+        this.selectedDate = LocalDate.now();
+        setupDayLabels();
         updateCal();
     }
 
@@ -49,17 +50,17 @@ public class CalendarController {
         this.onAddEventRequest = onAddEventRequest;
     }
 
-    private void setupDays() {
+    private void setupDayLabels() {
         String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
         dayGrid.getChildren().clear();
 
         for (int i = 0; i < 7; i++) {
-            Label day = new Label(days[i]);
-            day.getStyleClass().add("day-label");
-            day.setMaxWidth(Double.MAX_VALUE);
-            day.setAlignment(Pos.CENTER);
-            GridPane.setHgrow(day, Priority.ALWAYS);
-            dayGrid.add(day, i, 0);
+            Label dayLabel = new Label(days[i]);
+            dayLabel.getStyleClass().add("day-label");
+            dayLabel.setMaxWidth(Double.MAX_VALUE);
+            dayLabel.setAlignment(Pos.CENTER);
+            GridPane.setHgrow(dayLabel, Priority.ALWAYS);
+            dayGrid.add(dayLabel, i, 0);
         }
     }
 
@@ -69,69 +70,90 @@ public class CalendarController {
         monthLabel.setText(currentMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH));
         yearLabel.setText(String.valueOf(currentMonth.getYear()));
 
-        LocalDate first = currentMonth.atDay(1);
-        int dayOfWeek = first.getDayOfWeek().getValue();
+        LocalDate firstDay = currentMonth.atDay(1);
+        int startDayOfWeek = firstDay.getDayOfWeek().getValue();
         int daysInMonth = currentMonth.lengthOfMonth();
 
-        YearMonth prev = currentMonth.minusMonths(1);
-        int prevDays = prev.lengthOfMonth();
-        int start = prevDays - dayOfWeek + 2;
+        YearMonth prevMonth = currentMonth.minusMonths(1);
+        int prevMonthDays = prevMonth.lengthOfMonth();
+        int prevMonthStart = prevMonthDays - startDayOfWeek + 2;
 
-        int row = 0, col = 0;
+        int row = 0;
+        int col = 0;
 
-        for (int i = start; i <= prevDays; i++) {
-            addCell(prev.atDay(i), row, col, true);
+        for (int day = prevMonthStart; day <= prevMonthDays; day++) {
+            addDateCell(prevMonth.atDay(day), row, col, true);
             col++;
         }
 
-        for (int d = 1; d <= daysInMonth; d++) {
-            if (col == 7) { col = 0; row++; }
-            addCell(currentMonth.atDay(d), row, col, false);
+        for (int day = 1; day <= daysInMonth; day++) {
+            if (col == 7) {
+                col = 0;
+                row++;
+            }
+            addDateCell(currentMonth.atDay(day), row, col, false);
             col++;
         }
 
-        int nextDay = 1;
+        int nextMonthDay = 1;
         while (row < 5 || col < 7) {
-            if (col == 7) { col = 0; row++; if (row >= 6) break; }
-            addCell(currentMonth.plusMonths(1).atDay(nextDay), row, col, true);
-            nextDay++;
+            if (col == 7) {
+                col = 0;
+                row++;
+                if (row >= 6) break;
+            }
+            addDateCell(currentMonth.plusMonths(1).atDay(nextMonthDay), row, col, true);
+            nextMonthDay++;
             col++;
         }
     }
 
-    private void addCell(LocalDate date, int row, int col, boolean other) {
+    private void addDateCell(LocalDate date, int row, int col, boolean otherMonth) {
         VBox cell = new VBox(3);
         cell.setAlignment(Pos.CENTER);
         cell.getStyleClass().add("day-cell");
 
-        if (other) cell.getStyleClass().add("other-month");
-        if (date.equals(LocalDate.now())) cell.getStyleClass().add("today");
-        if (date.equals(selected) && !date.equals(LocalDate.now())) cell.getStyleClass().add("selected");
-
-        Label day = new Label(String.valueOf(date.getDayOfMonth()));
-        cell.getChildren().add(day);
-
-        if (eventsMap.containsKey(date)) {
-            HBox dots = new HBox(2);
-            dots.setAlignment(Pos.CENTER);
-            dots.getStyleClass().add("event-dots");
-
-            int count = Math.min(eventsMap.get(date).size(), 3);
-            for (int i = 0; i < count; i++) {
-                Circle d = new Circle(2);
-                d.getStyleClass().add("event-dot");
-                if (i == 1) d.getStyleClass().add("secondary");
-                if (i == 2) d.getStyleClass().add("tertiary");
-                dots.getChildren().add(d);
-            }
-            cell.getChildren().add(dots);
+        if (otherMonth) {
+            cell.getStyleClass().add("other-month");
         }
 
-        cell.setOnMouseClicked(e -> {
-            selected = date;
+        if (date.equals(LocalDate.now())) {
+            cell.getStyleClass().add("today");
+        }
+
+        if (date.equals(selectedDate) && !date.equals(LocalDate.now())) {
+            cell.getStyleClass().add("selected");
+        }
+
+        Label dayNumber = new Label(String.valueOf(date.getDayOfMonth()));
+        cell.getChildren().add(dayNumber);
+
+        // add events dots
+        if (eventsMap.containsKey(date)) {
+            HBox dotsBox = new HBox(2);
+            dotsBox.setAlignment(Pos.CENTER);
+            dotsBox.getStyleClass().add("event-dots");
+
+            int eventCount = eventsMap.get(date).size();
+            int dotsToShow = Math.min(eventCount, 3); // Max 3 dots
+
+            for (int i = 0; i < dotsToShow; i++) {
+                Circle dot = new Circle(2);
+                dot.getStyleClass().add("event-dot");
+                if (i == 1) dot.getStyleClass().add("secondary");
+                if (i == 2) dot.getStyleClass().add("tertiary");
+                dotsBox.getChildren().add(dot);
+            }
+            cell.getChildren().add(dotsBox);
+        }
+
+        cell.setOnMouseClicked(event -> {
+            selectedDate = date;
             updateCal();
-            if (onDateChange != null) onDateChange.run();
-            showAddEventDialog(date);
+            if (onDateChange != null) {
+                onDateChange.run();
+            }
+            showAddDialog(date);
         });
 
         GridPane.setHgrow(cell, Priority.ALWAYS);
@@ -139,18 +161,21 @@ public class CalendarController {
         calGrid.add(cell, col, row);
     }
 
-    private void showAddEventDialog(LocalDate date) {
+    private void showAddDialog(LocalDate date) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Add Event");
-        alert.setHeaderText("Add event on " + date.format(java.time.format.DateTimeFormatter.ofPattern("MMMM d, yyyy")) + "?");
 
-        ButtonType addButton = new ButtonType("Add Event");
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonType.CANCEL.getButtonData());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+        String dateText = date.format(formatter);
+        alert.setHeaderText("Add event on " + dateText + "?");
 
-        alert.getButtonTypes().setAll(addButton, cancelButton);
+        ButtonType addBtn = new ButtonType("Add Event");
+        ButtonType cancelBtn = new ButtonType("Cancel", ButtonType.CANCEL.getButtonData());
+
+        alert.getButtonTypes().setAll(addBtn, cancelBtn);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == addButton) {
+        if (result.isPresent() && result.get() == addBtn) {
             if (onAddEventRequest != null) {
                 onAddEventRequest.run();
             }
@@ -170,6 +195,6 @@ public class CalendarController {
     }
 
     public LocalDate getSelected() {
-        return selected;
+        return selectedDate;
     }
 }

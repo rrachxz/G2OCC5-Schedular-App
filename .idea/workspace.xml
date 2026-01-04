@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b205a62f-181a-4136-82cd-4111ee0b320e" name="Changes" comment="clickable calendar date to add event">
+    <list default="true" id="b205a62f-181a-4136-82cd-4111ee0b320e" name="Changes" comment="updates">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/AddController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/CalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/CalendarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/EventsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/EventsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/NavbarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/NavbarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/NotifsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/NotifsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/notifs.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/notifs.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/add.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/add.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +106,7 @@
       <workItem from="1766819140690" duration="4190000" />
       <workItem from="1767385651385" duration="836000" />
       <workItem from="1767505892665" duration="4059000" />
+      <workItem from="1767532001525" duration="2556000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -134,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767238883368</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="updates">
+      <option name="closed" value="true" />
+      <created>1767527112701</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1767527112701</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,6 +150,7 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="first commit" />
     <MESSAGE value="clickable calendar date to add event" />
-    <option name="LAST_COMMIT_MESSAGE" value="clickable calendar date to add event" />
+    <MESSAGE value="updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="updates" />
   </component>
 </project>

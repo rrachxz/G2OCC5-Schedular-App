@@ -22,7 +22,7 @@ public class EventsController {
     @FXML private VBox eventsContainer;
 
     private Map<LocalDate, List<Events>> eventsMap;
-    private LocalDate selected;
+    private LocalDate selectedDate;
     private Runnable onUpdate;
     private Consumer<Events> onEdit;
 
@@ -33,10 +33,10 @@ public class EventsController {
     }
 
     public void updateEvents(LocalDate date) {
-        this.selected = date;
+        selectedDate = date;
         eventsContainer.getChildren().clear();
 
-        if (!eventsMap.containsKey(selected) || eventsMap.get(selected).isEmpty()) {
+        if (!eventsMap.containsKey(selectedDate) || eventsMap.get(selectedDate).isEmpty()) {
             Label noEvents = new Label("No events scheduled");
             noEvents.getStyleClass().add("text-muted");
             noEvents.setStyle("-fx-font-size: 14px; -fx-padding: 20 0 0 0;");
@@ -44,15 +44,16 @@ public class EventsController {
             return;
         }
 
-        List<Events> events = eventsMap.get(selected);
-        String[] styles = {"event-primary", "event-secondary", "event-tertiary"};
+        List<Events> events = eventsMap.get(selectedDate);
+        String[] colors = {"event-primary", "event-secondary", "event-tertiary"};
 
         for (int i = 0; i < events.size(); i++) {
-            eventsContainer.getChildren().add(makeCard(events.get(i), styles[i % 3]));
+            HBox eventCard = createEventCard(events.get(i), colors[i % 3]);
+            eventsContainer.getChildren().add(eventCard);
         }
     }
 
-    private HBox makeCard(Events event, String style) {
+    private HBox createEventCard(Events event, String colorStyle) {
         HBox card = new HBox(15);
         card.setAlignment(Pos.CENTER_LEFT);
         card.getStyleClass().add("event-card");
@@ -60,78 +61,66 @@ public class EventsController {
         VBox content = new VBox(6);
         HBox.setHgrow(content, Priority.ALWAYS);
 
-        HBox timeBox = new HBox(8);
-        timeBox.setAlignment(Pos.CENTER_LEFT);
+        HBox timeSection = new HBox(8);
+        timeSection.setAlignment(Pos.CENTER_LEFT);
 
-        Circle dot = new Circle(4);
-        dot.getStyleClass().add("event-dot");
-        if (style.equals("event-secondary")) dot.getStyleClass().add("secondary");
-        if (style.equals("event-tertiary")) dot.getStyleClass().add("tertiary");
+        Circle colorDot = new Circle(4);
+        colorDot.getStyleClass().add("event-dot");
+        if (colorStyle.equals("event-secondary")) {
+            colorDot.getStyleClass().add("secondary");
+        }
+        if (colorStyle.equals("event-tertiary")) {
+            colorDot.getStyleClass().add("tertiary");
+        }
 
-        Label time = new Label(getTime(event.getStartDateTime()) + " - " + getTime(event.getEndDateTime()));
-        time.getStyleClass().addAll("event-time", style);
-        timeBox.getChildren().addAll(dot, time);
+        String startTime = formatTime(event.getStartDateTime());
+        String endTime = formatTime(event.getEndDateTime());
+        Label timeLabel = new Label(startTime + " - " + endTime);
+        timeLabel.getStyleClass().addAll("event-time", colorStyle);
 
-        Label title = new Label(event.getTitle());
-        title.getStyleClass().add("event-title");
-        title.setWrapText(true);
+        timeSection.getChildren().addAll(colorDot, timeLabel);
 
-        HBox descBox = new HBox(5);
-        descBox.setAlignment(Pos.CENTER_LEFT);
+        Label titleLabel = new Label(event.getTitle());
+        titleLabel.getStyleClass().add("event-title");
+        titleLabel.setWrapText(true);
 
         String description = event.getDesc();
-        if (description == null || description.isEmpty()) {
-            description = "No description";
-        }
-
-        Label desc = new Label(description);
-        desc.getStyleClass().add("event-desc");
-        desc.setMaxWidth(180);
-
-        if (description.length() > 40) {
-            desc.setText(description.substring(0, 37) + "...");
-            Hyperlink more = new Hyperlink("View more");
-            more.getStyleClass().add("event-link");
-            final String fullDesc = description;
-            more.setOnAction(e -> {
-                desc.setText(fullDesc);
-                desc.setWrapText(true);
-                more.setVisible(false);
-            });
-            descBox.getChildren().addAll(desc, more);
+        if (description != null && !description.isEmpty()) {
+            Label descLabel = new Label(description);
+            descLabel.getStyleClass().add("event-desc");
+            descLabel.setWrapText(true);
+            descLabel.setMaxWidth(200);
+            content.getChildren().addAll(timeSection, titleLabel, descLabel);
         } else {
-            descBox.getChildren().add(desc);
+            content.getChildren().addAll(timeSection, titleLabel);
         }
 
-        content.getChildren().addAll(timeBox, title, descBox);
+        Button menuBtn = new Button("⋮");
+        menuBtn.getStyleClass().add("event-more-btn");
+        menuBtn.setOnAction(e -> showMenu(event, menuBtn));
 
-        Button btn = new Button("⋮");
-        btn.getStyleClass().add("event-more-btn");
-        btn.setOnAction(e -> showOptions(event, btn));
-
-        card.getChildren().addAll(content, btn);
+        card.getChildren().addAll(content, menuBtn);
         return card;
     }
 
-    private void showOptions(Events event, Button btn) {
+    private void showMenu(Events event, Button button) {
         ContextMenu menu = new ContextMenu();
-        MenuItem edit = new MenuItem("Edit");
-        MenuItem delete = new MenuItem("Delete");
 
-        edit.setOnAction(e -> editEvent(event));
-        delete.setOnAction(e -> confirmDelete(event));
+        MenuItem editItem = new MenuItem("Edit");
+        editItem.setOnAction(e -> {
+            if (onEdit != null) {
+                onEdit.accept(event);
+            }
+        });
 
-        menu.getItems().addAll(edit, delete);
-        menu.show(btn, javafx.geometry.Side.BOTTOM, 0, 0);
+        MenuItem deleteItem = new MenuItem("Delete");
+        deleteItem.setOnAction(e -> deleteConfirm(event));
+
+        menu.getItems().addAll(editItem, deleteItem);
+        menu.show(button, javafx.geometry.Side.BOTTOM, 0, 0);
     }
 
-    private void editEvent(Events event) {
-        if (onEdit != null) {
-            onEdit.accept(event);
-        }
-    }
-
-    private void confirmDelete(Events event) {
+    private void deleteConfirm(Events event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Event");
         alert.setHeaderText("Delete \"" + event.getTitle() + "\"?");
@@ -144,21 +133,30 @@ public class EventsController {
 
     private void deleteEvent(Events event) {
         for (Map.Entry<LocalDate, List<Events>> entry : eventsMap.entrySet()) {
-            List<Events> list = entry.getValue();
-            if (list.contains(event)) {
-                list.remove(event);
-                if (list.isEmpty()) {
+            List<Events> eventsList = entry.getValue();
+
+            if (eventsList.contains(event)) {
+                eventsList.remove(event);
+
+                if (eventsList.isEmpty()) {
                     eventsMap.remove(entry.getKey());
                 }
                 break;
             }
         }
-        updateEvents(selected);
-        if (onUpdate != null) onUpdate.run();
+
+        updateEvents(selectedDate);
+
+        if (onUpdate != null) {
+            onUpdate.run();
+        }
     }
 
-    private String getTime(LocalDateTime dt) {
-        if (dt == null) return "00:00";
-        return dt.format(DateTimeFormatter.ofPattern("HH:mm"));
+    private String formatTime(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return "00:00";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return dateTime.format(formatter);
     }
 }

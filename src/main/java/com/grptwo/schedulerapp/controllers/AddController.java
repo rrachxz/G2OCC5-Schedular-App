@@ -12,7 +12,6 @@ public class AddController {
 
     public TextField nameField;
     public TextField descField;
-    public TextArea noteArea;
     public DatePicker datePicker;
     public TextField startField;
     public TextField endField;
@@ -33,138 +32,84 @@ public class AddController {
     }
 
     public void setInitialDate(LocalDate date) {
-        if (date != null) {
-            datePicker.setValue(date);
-        }
+        datePicker.setValue(date);
     }
 
     public void setEditMode(Events event) {
-        this.isEditMode = true;
-        this.editingEvent = event;
+        isEditMode = true;
+        editingEvent = event;
 
         nameField.setText(event.getTitle());
+        descField.setText(event.getDesc());
+        datePicker.setValue(event.getStartDateTime().toLocalDate());
 
-        String desc = event.getDesc();
-        if (desc != null && !desc.isEmpty()) {
-            descField.setText(desc);
-            noteArea.setText(desc);
-        }
+        int startHour = event.getStartDateTime().getHour();
+        int startMin = event.getStartDateTime().getMinute();
+        startField.setText(String.format("%02d:%02d", startHour, startMin));
 
-        if (event.getStartDateTime() != null) {
-            datePicker.setValue(event.getStartDateTime().toLocalDate());
-            startField.setText(formatTime(event.getStartDateTime().toLocalTime()));
-        }
-
-        if (event.getEndDateTime() != null) {
-            endField.setText(formatTime(event.getEndDateTime().toLocalTime()));
-        }
+        int endHour = event.getEndDateTime().getHour();
+        int endMin = event.getEndDateTime().getMinute();
+        endField.setText(String.format("%02d:%02d", endHour, endMin));
 
         createBtn.setText("Update Event");
     }
 
     @FXML
     public void onCreate() {
-        String name = nameField.getText();
-        if (name == null || name.trim().isEmpty()) {
-            showAlert("Please enter event name");
+        if (nameField.getText().isEmpty()) {
+            showError("Please enter event name");
             return;
         }
 
         if (datePicker.getValue() == null) {
-            showAlert("Please select a date");
+            showError("Please select a date");
             return;
         }
 
-        String startTimeStr = startField.getText();
-        String endTimeStr = endField.getText();
-
-        if (startTimeStr == null || startTimeStr.trim().isEmpty()) {
-            showAlert("Please enter start time");
-            return;
-        }
-
-        if (endTimeStr == null || endTimeStr.trim().isEmpty()) {
-            showAlert("Please enter end time");
+        if (startField.getText().isEmpty() || endField.getText().isEmpty()) {
+            showError("Please enter start and end times");
             return;
         }
 
         try {
+            String name = nameField.getText();
+            String desc = descField.getText();
             LocalDate date = datePicker.getValue();
-            LocalTime startTime = parseTime(startTimeStr);
-            LocalTime endTime = parseTime(endTimeStr);
 
-            if (endTime.isBefore(startTime) || endTime.equals(startTime)) {
-                showAlert("End time must be after start time");
+            String[] startParts = startField.getText().split(":");
+            int startHour = Integer.parseInt(startParts[0]);
+            int startMin = Integer.parseInt(startParts[1]);
+
+            String[] endParts = endField.getText().split(":");
+            int endHour = Integer.parseInt(endParts[0]);
+            int endMin = Integer.parseInt(endParts[1]);
+
+            LocalDateTime startDateTime = LocalDateTime.of(date, LocalTime.of(startHour, startMin));
+            LocalDateTime endDateTime = LocalDateTime.of(date, LocalTime.of(endHour, endMin));
+
+            if (endDateTime.isBefore(startDateTime) || endDateTime.equals(startDateTime)) {
+                showError("End time must be after start time");
                 return;
             }
 
-            LocalDateTime startDt = LocalDateTime.of(date, startTime);
-            LocalDateTime endDt = LocalDateTime.of(date, endTime);
+            newEvent = new Events(0, name, desc, startDateTime, endDateTime);
 
-            String description = descField.getText();
-            if (description == null) {
-                description = "";
+            if (isEditMode) {
+                homepageController.updateEvent(editingEvent, newEvent);
+            } else {
+                homepageController.addEvent(newEvent);
             }
 
-            newEvent = new Events(0, name.trim(), description.trim(), startDt, endDt);
+            homepageController.returnToCalendar();
 
-            if (homepageController != null) {
-                if (isEditMode && editingEvent != null) {
-                    homepageController.updateEvent(editingEvent, newEvent);
-                } else {
-                    homepageController.addEvent(newEvent);
-                }
-                homepageController.returnToCalendar();
-            }
-
-        } catch (NumberFormatException e) {
-            showAlert("Invalid time format. Please use HH:mm format (e.g., 09:00, 14:30)");
         } catch (Exception e) {
-            showAlert("Error: " + e.getMessage());
-            e.printStackTrace();
+            showError("Invalid time format. Use HH:mm (e.g. 09:00)");
         }
     }
 
-    private LocalTime parseTime(String timeStr) throws NumberFormatException {
-        if (timeStr == null || timeStr.trim().isEmpty()) {
-            throw new NumberFormatException("Time is empty");
-        }
-
-        timeStr = timeStr.trim();
-
-        if (!timeStr.contains(":")) {
-            throw new NumberFormatException("Time must contain ':'");
-        }
-
-        String[] parts = timeStr.split(":");
-
-        if (parts.length != 2) {
-            throw new NumberFormatException("Invalid time format");
-        }
-
-        int hours = Integer.parseInt(parts[0].trim());
-        int minutes = Integer.parseInt(parts[1].trim());
-
-        if (hours < 0 || hours > 23) {
-            throw new NumberFormatException("Hours must be 0-23");
-        }
-
-        if (minutes < 0 || minutes > 59) {
-            throw new NumberFormatException("Minutes must be 0-59");
-        }
-
-        return LocalTime.of(hours, minutes);
-    }
-
-    private String formatTime(LocalTime time) {
-        if (time == null) return "";
-        return String.format("%02d:%02d", time.getHour(), time.getMinute());
-    }
-
-    private void showAlert(String message) {
+    private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning");
-        alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }

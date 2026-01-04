@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -121,8 +122,9 @@ public class NotifsController {
         HBox spacer = new HBox();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        Button deleteBtn = new Button("×");
-        deleteBtn.getStyleClass().add("notif-delete-btn");
+        Button deleteBtn = new Button();
+        deleteBtn.setGraphic(new FontIcon("bi-x"));
+        deleteBtn.getStyleClass().add("x-delete");
         deleteBtn.setOnAction(e -> {
             notifs.remove(notif);
             displayNotifs();
