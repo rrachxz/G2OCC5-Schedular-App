@@ -17,7 +17,6 @@
             <Insets top="30" right="30" bottom="20" left="30"/>
         </padding>
         <Text text="Notifications" styleClass="page-title"/>
-        <Label text="Your upcoming events and reminders" styleClass="page-subtitle"/>
     </VBox>
 
     <ScrollPane styleClass="notifs-scroll" fitToWidth="true"

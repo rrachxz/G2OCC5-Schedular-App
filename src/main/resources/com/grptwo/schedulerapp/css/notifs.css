@@ -16,12 +16,6 @@
     -fx-fill: -fx-text-primary;
 }
 
-.page-subtitle {
-    -fx-font-size: 14px;
-    -fx-text-fill: -fx-text-light;
-    -fx-padding: 5 0 0 0;
-}
-
 .notifs-scroll {
     -fx-background-color: -fx-bg-primary;
     -fx-border-color: transparent;
