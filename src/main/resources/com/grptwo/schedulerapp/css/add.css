@@ -13,7 +13,7 @@
     -fx-background-radius: 8px;
     -fx-padding: 12px;
     -fx-font-size: 14px;
-    -fx-prompt-text-fill: -fx-gray-600;
+    -fx-prompt-text-fill: -fx-gray-500;
 }
 
 .input-field:focused, .note-area:focused, .time-field:focused{
@@ -52,23 +52,6 @@
 
 .time-field {
     -fx-pref-width: 150px;
-}
-
-.remind-label {
-    -fx-font-size: 16px;
-    -fx-text-fill: -fx-text-primary;
-}
-
-.toggle-btn {
-    -fx-background-color: -fx-gray-400;
-    -fx-background-radius: 20px;
-    -fx-pref-width: 50px;
-    -fx-pref-height: 28px;
-    -fx-cursor: hand;
-}
-
-.toggle-btn:selected {
-    -fx-background-color: -fx-bg-primary;
 }
 
 .create-btn {

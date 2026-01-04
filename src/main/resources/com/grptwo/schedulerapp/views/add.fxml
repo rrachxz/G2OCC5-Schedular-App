@@ -39,12 +39,6 @@
                        HBox.hgrow="ALWAYS"/>
         </HBox>
 
-        <HBox alignment="CENTER_LEFT" spacing="10">
-            <Label text="Remind me" styleClass="remind-label"/>
-            <Region HBox.hgrow="ALWAYS"/>
-            <ToggleButton fx:id="remindToggle" styleClass="toggle-btn"/>
-        </HBox>
-
         <Button fx:id="createBtn" text="Create Event" styleClass="create-btn"
                 onAction="#onCreate" maxWidth="Infinity">
             <VBox.margin>
