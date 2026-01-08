@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b205a62f-181a-4136-82cd-4111ee0b320e" name="Changes" comment="Version(original)">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/SearchController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/search.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/search.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/NavbarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/NavbarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/navbar.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/navbar.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

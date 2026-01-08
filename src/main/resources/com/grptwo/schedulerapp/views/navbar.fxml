@@ -30,6 +30,12 @@
             </graphic>
         </Button>
 
+        <Button fx:id="searchBtn" styleClass="nav-button" onAction="#onSearchClick" maxWidth="Infinity">
+            <graphic>
+                <FontIcon iconLiteral="bi-search" iconSize="20" />
+            </graphic>
+        </Button>
+
         <Button fx:id="profileBtn" styleClass="nav-button" onAction="#onProfileClick" maxWidth="Infinity">
             <graphic>
                 <FontIcon iconLiteral="bi-person" iconSize="24" />

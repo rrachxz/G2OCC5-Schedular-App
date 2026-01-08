@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.grptwo.schedulerapp.controllers.SearchController"
+      stylesheets="@../css/search.css"
+      styleClass="page"
+      spacing="0">
+
+    <VBox styleClass="header" alignment="CENTER">
+        <padding>
+            <Insets top="30" right="30" bottom="20" left="30"/>
+        </padding>
+        <Text text="Search Events" styleClass="page-title"/>
+    </VBox>
+
+    <VBox styleClass="container">
+        <padding>
+            <Insets top="20" right="30" bottom="20" left="30"/>
+        </padding>
+
+        <HBox spacing="0" alignment="CENTER_LEFT" styleClass="wrapper">
+            <FontIcon iconLiteral="bi-search" iconSize="18" styleClass="search-icon"/>
+
+            <TextField fx:id="searchField"
+                       promptText="Search for events..."
+                       styleClass="search-field"
+                       HBox.hgrow="ALWAYS"
+                       onAction="#onSearch"/>
+        </HBox>
+    </VBox>
+
+    <ScrollPane styleClass="search-scroll"
+                fitToWidth="true"
+                hbarPolicy="NEVER"
+                VBox.vgrow="ALWAYS">
+        <VBox fx:id="resultsContainer"
+              styleClass="results-container"
+              spacing="15">
+            <padding>
+                <Insets top="10" right="30" bottom="30" left="30"/>
+            </padding>
+        </VBox>
+    </ScrollPane>
+
+</VBox>

@@ -1,6 +1,7 @@
 package com.grptwo.schedulerapp.controllers;
 
 import com.grptwo.schedulerapp.models.Events;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,6 +17,7 @@ public class NavbarController {
     public Button calendarBtn;
     public Button bellBtn;
     public Button profileBtn;
+    public Button searchBtn;
 
     private Node homepageContent;
     private HomepageController homepageController;
@@ -88,6 +90,37 @@ public class NavbarController {
         loadView("/com/grptwo/schedulerapp/views/profiles.fxml");
     }
 
+    public void onSearchClick(ActionEvent actionEvent) {
+        setActiveNavButton(searchBtn);
+        loadSearchView();
+    }
+
+    private void loadSearchView() {
+        try {
+            BorderPane mainContainer = (BorderPane) calendarBtn.getScene().getRoot();
+            if (mainContainer == null) {
+                System.err.println("Main container is null!");
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/grptwo/schedulerapp/views/search.fxml"));
+            Node newContent = loader.load();
+
+            SearchController searchController = loader.getController();
+            if (searchController != null && homepageController != null) {
+                searchController.init(
+                        homepageController.getEventsMap(),
+                        (event) -> loadAddView(null, event)  // Allow editing from search results
+                );
+            }
+
+            mainContainer.setCenter(newContent);
+
+        } catch (IOException e) {
+            System.err.println("Error loading search view:");
+            e.printStackTrace();
+        }
+    }
     @FXML
     public void onAddClick() {
         setActiveNavButton(addBtn);
@@ -150,6 +183,7 @@ public class NavbarController {
         calendarBtn.getStyleClass().remove("nav-active");
         bellBtn.getStyleClass().remove("nav-active");
         profileBtn.getStyleClass().remove("nav-active");
+        searchBtn.getStyleClass().remove("nav-active");
         addBtn.getStyleClass().remove("nav-active");
 
         if (activeButton != null && !activeButton.getStyleClass().contains("nav-active")) {
