@@ -23,11 +23,11 @@ public class Main extends Application {
             stage.setX(event.getScreenX() - xOffset);
             stage.setY(event.getScreenY() - yOffset);
         });
-        Scene scene = new Scene(root, 900, 800);
+        Scene scene = new Scene(root);//make sure the Controller file can be in charge of initializing file
         scene.getStylesheets().add(Main.class.getResource("css/style.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Welcome!");
-        stage.show() ;
+        stage.show();
     }
 }
 
