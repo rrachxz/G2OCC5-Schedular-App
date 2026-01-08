@@ -23,7 +23,7 @@ public class Main extends Application {
             stage.setX(event.getScreenX() - xOffset);
             stage.setY(event.getScreenY() - yOffset);
         });
-        Scene scene = new Scene(root, 902, 1255);
+        Scene scene = new Scene(root);
         scene.getStylesheets().add(Main.class.getResource("css/style.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Welcome!");

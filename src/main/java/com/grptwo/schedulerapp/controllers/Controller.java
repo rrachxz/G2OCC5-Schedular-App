@@ -12,16 +12,24 @@ public class Controller {
     @FXML
     private Button continueBtn;
 
+    // Inside Controller.java
+
     @FXML
     protected void onContinueButtonClick(ActionEvent actionEvent) {
         try {
             Stage stage = (Stage) continueBtn.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/com/grptwo/schedulerapp/views/homepage.fxml")
-            );
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/grptwo/schedulerapp/views/homepage.fxml"));
 
-            Scene scene = new Scene(fxmlLoader.load(), 902, 1255);
+            Scene scene = new Scene(fxmlLoader.load());
+
             stage.setScene(scene);
+
+            stage.setWidth(900);
+            stage.setHeight(800);
+
+            //Center the new window on the screen so it looks nice
+            stage.centerOnScreen();
+
             stage.setTitle("G2OCC5 Scheduler App");
 
         } catch (IOException e) {
