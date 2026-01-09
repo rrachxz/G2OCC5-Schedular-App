@@ -167,7 +167,6 @@ public class ProfileController {
                     String startStr = parts[3].trim();
                     String endStr = parts[4].trim();
 
-                    // Try parsing with time first, then without
                     java.time.LocalDateTime startDt;
                     java.time.LocalDateTime endDt;
 
