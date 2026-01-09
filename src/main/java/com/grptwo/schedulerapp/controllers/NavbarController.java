@@ -1,7 +1,6 @@
 package com.grptwo.schedulerapp.controllers;
 
 import com.grptwo.schedulerapp.models.Events;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,12 +14,14 @@ public class NavbarController {
 
     public Button addBtn;
     public Button calendarBtn;
+    public Button searchBtn;
     public Button bellBtn;
     public Button profileBtn;
-    public Button searchBtn;
 
     private Node homepageContent;
     private HomepageController homepageController;
+    private NotifsController notifsController;
+    private SearchController searchController;
 
     @FXML
     public void initialize() {
@@ -55,9 +56,27 @@ public class NavbarController {
     }
 
     @FXML
+    public void onSearchClick() {
+        setActiveNavButton(searchBtn);
+        loadSearchView();
+    }
+
+    @FXML
     public void onBellClick() {
         setActiveNavButton(bellBtn);
         loadNotifsView();
+    }
+
+    @FXML
+    public void onProfileClick() {
+        setActiveNavButton(profileBtn);
+        loadProfileView();
+    }
+
+    @FXML
+    public void onAddClick() {
+        setActiveNavButton(addBtn);
+        loadAddView(null, null);
     }
 
     public void loadNotifsView() {
@@ -71,7 +90,7 @@ public class NavbarController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/grptwo/schedulerapp/views/notifs.fxml"));
             Node newContent = loader.load();
 
-            NotifsController notifsController = loader.getController();
+            notifsController = loader.getController();
             if (notifsController != null && homepageController != null) {
                 notifsController.init(homepageController.getEventsMap());
             }
@@ -84,18 +103,7 @@ public class NavbarController {
         }
     }
 
-    @FXML
-    public void onProfileClick() {
-        setActiveNavButton(profileBtn);
-        loadView("/com/grptwo/schedulerapp/views/profiles.fxml");
-    }
-
-    public void onSearchClick(ActionEvent actionEvent) {
-        setActiveNavButton(searchBtn);
-        loadSearchView();
-    }
-
-    private void loadSearchView() {
+    public void loadSearchView() {
         try {
             BorderPane mainContainer = (BorderPane) calendarBtn.getScene().getRoot();
             if (mainContainer == null) {
@@ -106,12 +114,9 @@ public class NavbarController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/grptwo/schedulerapp/views/search.fxml"));
             Node newContent = loader.load();
 
-            SearchController searchController = loader.getController();
+            searchController = loader.getController();
             if (searchController != null && homepageController != null) {
-                searchController.init(
-                        homepageController.getEventsMap(),
-                        (event) -> loadAddView(null, event)  // Allow editing from search results
-                );
+                searchController.init(homepageController.getEventsMap(), homepageController::openEditPage);
             }
 
             mainContainer.setCenter(newContent);
@@ -121,10 +126,29 @@ public class NavbarController {
             e.printStackTrace();
         }
     }
-    @FXML
-    public void onAddClick() {
-        setActiveNavButton(addBtn);
-        loadAddView(null, null);
+
+    public void loadProfileView() {
+        try {
+            BorderPane mainContainer = (BorderPane) calendarBtn.getScene().getRoot();
+            if (mainContainer == null) {
+                System.err.println("Main container is null!");
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/grptwo/schedulerapp/views/profiles.fxml"));
+            Node newContent = loader.load();
+
+            ProfileController controller = loader.getController();
+            if (controller != null && homepageController != null) {
+                controller.init(homepageController.getEventsMap(), homepageController::onEventsUpdate);
+            }
+
+            mainContainer.setCenter(newContent);
+
+        } catch (IOException e) {
+            System.err.println("Error loading profile view:");
+            e.printStackTrace();
+        }
     }
 
     public void loadAddView(LocalDate selectedDate, Events editEvent) {
@@ -160,30 +184,11 @@ public class NavbarController {
         }
     }
 
-    private void loadView(String fxmlPath) {
-        try {
-            BorderPane mainContainer = (BorderPane) calendarBtn.getScene().getRoot();
-            if (mainContainer == null) {
-                System.err.println("Main container is null!");
-                return;
-            }
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Node newContent = loader.load();
-
-            mainContainer.setCenter(newContent);
-
-        } catch (IOException e) {
-            System.err.println("Error loading view: " + fxmlPath);
-            e.printStackTrace();
-        }
-    }
-
     private void setActiveNavButton(Button activeButton) {
         calendarBtn.getStyleClass().remove("nav-active");
+        searchBtn.getStyleClass().remove("nav-active");
         bellBtn.getStyleClass().remove("nav-active");
         profileBtn.getStyleClass().remove("nav-active");
-        searchBtn.getStyleClass().remove("nav-active");
         addBtn.getStyleClass().remove("nav-active");
 
         if (activeButton != null && !activeButton.getStyleClass().contains("nav-active")) {

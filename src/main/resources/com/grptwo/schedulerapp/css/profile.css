@@ -41,3 +41,60 @@
     -fx-font-size: 14px;
     -fx-text-fill: -fx-gray-600;
 }
+
+.section-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-fill: -fx-text-primary;
+}
+
+.backup-section {
+    -fx-background-color: -fx-bg-primary;
+    -fx-padding: 30;
+    -fx-background-radius: 15;
+    -fx-border-color: -fx-gray-200;
+    -fx-border-width: 2;
+    -fx-border-radius: 15;
+}
+
+.backup-btn {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 12 24;
+    -fx-cursor: hand;
+}
+
+.backup-btn:hover {
+    -fx-background-color: -fx-primary-dark;
+}
+
+.backup-btn .ikonli-font-icon {
+    -fx-icon-color: white;
+}
+
+.restore-btn {
+    -fx-background-color: -fx-bg-tertiary;
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 12 24;
+    -fx-cursor: hand;
+}
+
+.restore-btn:hover {
+    -fx-background-color: derive(-fx-bg-tertiary, -10%);
+}
+
+.restore-btn .ikonli-font-icon {
+    -fx-icon-color: -fx-text-primary;
+}
+
+.status-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: -fx-primary-color;
+    -fx-font-weight: 600;
+}

@@ -1,98 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.grptwo.schedulerapp.controllers.ProfileController"
-      stylesheets="@../css/profile.css"
-      styleClass="root"
-      alignment="TOP_CENTER"
-      spacing="40">
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.grptwo.schedulerapp.controllers.ProfileController"
+            stylesheets="@../css/profile.css"
+            fitToWidth="true"
+            hbarPolicy="NEVER">
 
-    <padding>
-        <Insets top="50" right="80" bottom="50" left="80"/>
-    </padding>
+    <VBox styleClass="root" alignment="TOP_CENTER" spacing="40">
+        <padding>
+            <Insets top="50" right="80" bottom="50" left="80"/>
+        </padding>
 
-    <Text text="Meet the Devs" styleClass="title"/>
+        <!-- Meet the Devs Section -->
+        <Text text="Meet the Devs" styleClass="title"/>
 
-    <VBox spacing="25" alignment="CENTER">
-        <GridPane hgap="25" vgap="25" alignment="CENTER">
+        <VBox spacing="25" alignment="CENTER">
+            <GridPane hgap="25" vgap="25" alignment="CENTER">
 
-            <HBox styleClass="dev-card" onMouseClicked="#openGithub1"
-                  GridPane.columnIndex="0" GridPane.rowIndex="0">
-                <ImageView fitHeight="80" fitWidth="80" preserveRatio="true">
-                    <image>
-                        <Image url="@../imgs/avatar.jpg"/>
-                    </image>
-                </ImageView>
+                <HBox styleClass="dev-card" onMouseClicked="#openGithub1"
+                      GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <ImageView fitHeight="80" fitWidth="80" preserveRatio="true">
+                        <image>
+                            <Image url="@../imgs/avatar.jpg"/>
+                        </image>
+                    </ImageView>
 
-                <VBox spacing="5" alignment="CENTER_LEFT">
-                    <Label text="RARA" styleClass="dev-name"/>
-                    <Label text="Back-end Dev" styleClass="dev-role"/>
-                </VBox>
+                    <VBox spacing="5" alignment="CENTER_LEFT">
+                        <Label text="RARA" styleClass="dev-name"/>
+                        <Label text="Back-end Dev" styleClass="dev-role"/>
+                    </VBox>
+                </HBox>
+
+                <HBox styleClass="dev-card" onMouseClicked="#openGithub2"
+                      GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <ImageView fitHeight="80" fitWidth="80" preserveRatio="true">
+                        <image>
+                            <Image url="@../imgs/avatar.jpg"/>
+                        </image>
+                    </ImageView>
+
+                    <VBox spacing="5" alignment="CENTER_LEFT">
+                        <Label text="KEISHA" styleClass="dev-name"/>
+                        <Label text="Front-end Dev" styleClass="dev-role"/>
+                    </VBox>
+                </HBox>
+
+                <HBox styleClass="dev-card" onMouseClicked="#openGithub3"
+                      GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <ImageView fitHeight="80" fitWidth="80" preserveRatio="true">
+                        <image>
+                            <Image url="@../imgs/avatar.jpg"/>
+                        </image>
+                    </ImageView>
+
+                    <VBox spacing="5" alignment="CENTER_LEFT">
+                        <Label text="LIZ" styleClass="dev-name"/>
+                        <Label text="Back-end Dev" styleClass="dev-role"/>
+                    </VBox>
+                </HBox>
+
+                <HBox styleClass="dev-card" onMouseClicked="#openGithub4"
+                      GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <ImageView fitHeight="80" fitWidth="80" preserveRatio="true">
+                        <image>
+                            <Image url="@../imgs/avatar.jpg"/>
+                        </image>
+                    </ImageView>
+
+                    <VBox spacing="5" alignment="CENTER_LEFT">
+                        <Label text="YUDONG" styleClass="dev-name"/>
+                        <Label text="Back-end Dev" styleClass="dev-role"/>
+                    </VBox>
+                </HBox>
+
+                <HBox styleClass="dev-card" onMouseClicked="#openGithub5"
+                      GridPane.columnIndex="0" GridPane.rowIndex="2">
+                    <ImageView fitHeight="80" fitWidth="80" preserveRatio="true">
+                        <image>
+                            <Image url="@../imgs/avatar.jpg"/>
+                        </image>
+                    </ImageView>
+
+                    <VBox spacing="5" alignment="CENTER_LEFT">
+                        <Label text="AHMAD" styleClass="dev-name"/>
+                        <Label text="Front-end Dev" styleClass="dev-role"/>
+                    </VBox>
+                </HBox>
+
+            </GridPane>
+        </VBox>
+
+        <!-- backup and restore aigoo -->
+        <VBox spacing="25" alignment="CENTER" styleClass="backup-section">
+            <Text text="Backup and Restore" styleClass="section-title"/>
+
+            <HBox spacing="20" alignment="CENTER">
+                <Button fx:id="backupBtn"
+                        text="Create Backup"
+                        styleClass="backup-btn"
+                        onAction="#onBackup">
+                    <graphic>
+                        <FontIcon iconLiteral="bi-download" iconSize="16"/>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="restoreBtn"
+                        text="Restore"
+                        styleClass="restore-btn"
+                        onAction="#onRestore">
+                    <graphic>
+                        <FontIcon iconLiteral="bi-upload" iconSize="16"/>
+                    </graphic>
+                </Button>
             </HBox>
 
-            <HBox styleClass="dev-card" onMouseClicked="#openGithub2"
-                  GridPane.columnIndex="1" GridPane.rowIndex="0">
-                <ImageView fitHeight="80" fitWidth="80" preserveRatio="true">
-                    <image>
-                        <Image url="@../imgs/avatar.jpg"/>
-                    </image>
-                </ImageView>
+            <Label fx:id="statusLabel" text="" styleClass="status-label" wrapText="true"/>
+        </VBox>
 
-                <VBox spacing="5" alignment="CENTER_LEFT">
-                    <Label text="KEISHA" styleClass="dev-name"/>
-                    <Label text="Front-end Dev" styleClass="dev-role"/>
-                </VBox>
-            </HBox>
-
-            <HBox styleClass="dev-card" onMouseClicked="#openGithub3"
-                  GridPane.columnIndex="0" GridPane.rowIndex="1">
-                <ImageView fitHeight="80" fitWidth="80" preserveRatio="true">
-                    <image>
-                        <Image url="@../imgs/avatar.jpg"/>
-                    </image>
-                </ImageView>
-
-                <VBox spacing="5" alignment="CENTER_LEFT">
-                    <Label text="LIZ" styleClass="dev-name"/>
-                    <Label text="Back-end Dev" styleClass="dev-role"/>
-                </VBox>
-            </HBox>
-
-            <HBox styleClass="dev-card" onMouseClicked="#openGithub4"
-                  GridPane.columnIndex="1" GridPane.rowIndex="1">
-                <ImageView fitHeight="80" fitWidth="80" preserveRatio="true">
-                    <image>
-                        <Image url="@../imgs/avatar.jpg"/>
-                    </image>
-                </ImageView>
-
-                <VBox spacing="5" alignment="CENTER_LEFT">
-                    <Label text="YUDONG" styleClass="dev-name"/>
-                    <Label text="Back-end Dev" styleClass="dev-role"/>
-                </VBox>
-            </HBox>
-
-            <HBox styleClass="dev-card" onMouseClicked="#openGithub5"
-                  GridPane.columnIndex="0" GridPane.rowIndex="2">
-                <ImageView fitHeight="80" fitWidth="80" preserveRatio="true">
-                    <image>
-                        <Image url="@../imgs/avatar.jpg"/>
-                    </image>
-                </ImageView>
-
-                <VBox spacing="5" alignment="CENTER_LEFT">
-                    <Label text="AHMAD" styleClass="dev-name"/>
-                    <Label text="Front-end Dev" styleClass="dev-role"/>
-                </VBox>
-            </HBox>
-
-        </GridPane>
     </VBox>
-</VBox>
+
+</ScrollPane>

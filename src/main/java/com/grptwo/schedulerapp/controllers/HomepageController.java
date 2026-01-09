@@ -31,8 +31,9 @@ public class HomepageController {
         eventsController.updateEvents(calendarController.getSelected());
     }
 
-    private void onEventsUpdate() {
+    public void onEventsUpdate() {
         calendarController.updateCal();
+        eventsController.updateEvents(calendarController.getSelected());
     }
 
     public void openAddPage() {
