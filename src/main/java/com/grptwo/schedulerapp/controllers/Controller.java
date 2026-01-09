@@ -50,8 +50,8 @@ public class Controller {
             stage.setScene(scene);
 
             // This sets the size for the next page (Calendar page)
-            stage.setWidth(800);
-            stage.setHeight(900);
+            stage.setWidth(1000);
+            stage.setHeight(700);
             stage.centerOnScreen();
             stage.setTitle("G2OCC5 Scheduler App");
 
