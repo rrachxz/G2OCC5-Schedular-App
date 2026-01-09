@@ -3,25 +3,33 @@ package com.grptwo.schedulerapp.models;
 import java.time.LocalDateTime;
 
 public class Events {
-    private Integer id;
+    private int id;
     private String title;
-    private String description;
+    private String desc;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
+    private Recurrance recurrence; // NEW: Add this field
 
-    public Events(Integer id, String title, String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    public Events(int id, String title, String desc, LocalDateTime startDateTime,
+                  LocalDateTime endDateTime, Recurrance recurrence) {
         this.id = id;
         this.title = title;
-        this.description = description;
+        this.desc = desc;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
+        this.recurrence = recurrence;
     }
 
-    public Integer getId() {
+    public Events(int id, String title, String desc, LocalDateTime startDateTime,
+                  LocalDateTime endDateTime) {
+        this(id, title, desc, startDateTime, endDateTime, null);
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -34,10 +42,11 @@ public class Events {
     }
 
     public String getDesc() {
-        return description;
+        return desc;
     }
-    public void setDesc(String description) {
-        this.description = description;
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public LocalDateTime getStartDateTime() {
@@ -54,5 +63,13 @@ public class Events {
 
     public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
+    }
+
+    public Recurrance getRecurrence() {
+        return recurrence;
+    }
+
+    public void setRecurrence(Recurrance recurrence) {
+        this.recurrence = recurrence;
     }
 }
