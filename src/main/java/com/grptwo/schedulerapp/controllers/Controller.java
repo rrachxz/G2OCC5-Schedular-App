@@ -23,8 +23,8 @@ public class Controller {
             Stage stage = (Stage) continueBtn.getScene().getWindow();
             Parent root = continueBtn.getScene().getRoot();
 
-            stage.setWidth(1000);
-            stage.setHeight(700);
+            stage.setWidth(700);
+            stage.setHeight(900);
             stage.centerOnScreen();
 
             root.setOnMousePressed(event -> {
@@ -50,8 +50,8 @@ public class Controller {
             stage.setScene(scene);
 
             // This sets the size for the next page (Calendar page)
-            stage.setWidth(1000);
-            stage.setHeight(700);
+            stage.setWidth(700);
+            stage.setHeight(900);
             stage.centerOnScreen();
             stage.setTitle("G2OCC5 Scheduler App");
 
