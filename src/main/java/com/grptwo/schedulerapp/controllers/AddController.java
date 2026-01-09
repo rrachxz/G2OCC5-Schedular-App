@@ -203,7 +203,7 @@ public class AddController {
         long minutes = java.time.Duration.between(start, end).toMinutes();
 
         // how many to create?
-        int maxEvents = 50;
+        int maxEvents = 5;
         LocalDateTime stopDate = start.plusYears(1);
 
         if (repeat.getEndDateTime() != null) {

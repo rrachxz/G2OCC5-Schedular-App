@@ -61,7 +61,7 @@
                     <DatePicker fx:id="endDatePicker" promptText="Select end date" maxWidth="Infinity" styleClass="input-field"/>
                 </VBox>
 
-                <Label text="* Leave both empty to repeat 50 times by default"
+                <Label text="* Leave both empty to repeat 5 times by default"
                        style="-fx-font-size: 11px; -fx-text-fill: gray;"/>
             </VBox>
 
