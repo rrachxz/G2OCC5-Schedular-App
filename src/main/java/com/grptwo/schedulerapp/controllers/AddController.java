@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 public class AddController {
 
@@ -91,7 +92,19 @@ public class AddController {
                 showError("End time must be after start time");
                 return;
             }
+            List<Events> eventsOnThatDay = homepageController.getEventsMap().get(date);
 
+            if (eventsOnThatDay != null) {
+                for (Events e : eventsOnThatDay) {
+                    if (isEditMode && e == editingEvent) {
+                        continue;
+                    }
+                    if (startDateTime.isBefore(e.getEndDateTime()) && endDateTime.isAfter(e.getStartDateTime())) {
+                        showError("Time clash detected!\nOverlaps with: " + e.getTitle());
+                        return;
+                    }
+                }
+            }
             newEvent = new Events(0, name, desc, startDateTime, endDateTime);
 
             if (isEditMode) {
