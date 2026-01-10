@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +22,7 @@ public class SearchController {
 
     @FXML private TextField searchField;
     @FXML private VBox resultsContainer;
+    @FXML private DatePicker datePickerSingle;
 
     private Map<LocalDate, List<Events>> eventsMap;
     private Consumer<Events> onEdit;
@@ -63,6 +65,27 @@ public class SearchController {
             showMessage("No events found for \"" + searchText + "\"");
         } else {
             showResults(foundEvents);
+        }
+    }
+
+    @FXML
+    public void onSearchByDate() {
+        LocalDate date = datePickerSingle.getValue();
+        if (date == null) {
+            showMessage("Select a date");
+            return;
+        }
+
+        List<Events> results = new ArrayList<>();
+        List<Events> dayEvents = eventsMap != null ? eventsMap.get(date) : null;
+        if (dayEvents != null) {
+            results.addAll(dayEvents);
+        }
+
+        if (results.isEmpty()) {
+            showMessage("No events found on " + date);
+        } else {
+            showResults(results);
         }
     }
 
