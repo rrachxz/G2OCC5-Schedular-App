@@ -132,6 +132,19 @@ public class AddController {
                 showError("End time must be after start time");
                 return;
             }
+            List<Events> eventsOnThatDay = homepageController.getEventsMap().get(date);
+
+            if (eventsOnThatDay != null) {
+                for (Events e : eventsOnThatDay) {
+                    if (isEditMode && e == editingEvent) {
+                        continue;
+                    }
+                    if (startTime.isBefore(e.getEndDateTime()) && endTime.isAfter(e.getStartDateTime())) {
+                        showError("Time clash detected!\nOverlaps with: " + e.getTitle());
+                        return;
+                    }
+                }
+            }
 
             // get repeat settings
             Recurrance repeat = getRepeatSettings();
