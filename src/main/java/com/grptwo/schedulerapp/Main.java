@@ -8,9 +8,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Main extends Application {
+public class Main extends Application{
 
-    @Override
+    @Override 
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/onboarding.fxml"));
         Parent root = fxmlLoader.load();

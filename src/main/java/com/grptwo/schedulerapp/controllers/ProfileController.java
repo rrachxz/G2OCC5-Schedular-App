@@ -30,29 +30,15 @@ public class ProfileController {
     }
 
     @FXML
-    public void openGithub1() {
-        openUrl("https://github.com/rrachxz");
-    }
-
+    public void openGithub1() { openUrl("https://github.com/rrachxz"); }
     @FXML
-    public void openGithub2() {
-        openUrl("https://github.com/keishaqila");
-    }
-
+    public void openGithub2() { openUrl("https://github.com/keishaqila"); }
     @FXML
-    public void openGithub3() {
-        openUrl("https://github.com/24078302Liz");
-    }
-
+    public void openGithub3() { openUrl("https://github.com/24078302Liz"); }
     @FXML
-    public void openGithub4() {
-        openUrl("https://github.com/24074901-glitch");
-    }
-
+    public void openGithub4() { openUrl("https://github.com/24074901-glitch"); }
     @FXML
-    public void openGithub5() {
-        openUrl("https://github.com/Versa03");
-    }
+    public void openGithub5() { openUrl("https://github.com/Versa03"); }
 
     @FXML
     public void onBackup() {
@@ -64,9 +50,7 @@ public class ProfileController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Backup");
         fileChooser.setInitialFileName("events_backup.csv");
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("CSV Files", "*.csv")
-        );
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
 
         File file = fileChooser.showSaveDialog(backupBtn.getScene().getWindow());
 
@@ -86,9 +70,7 @@ public class ProfileController {
     public void onRestore() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Backup File");
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("CSV Files", "*.csv")
-        );
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
 
         File file = fileChooser.showOpenDialog(restoreBtn.getScene().getWindow());
 
@@ -111,7 +93,8 @@ public class ProfileController {
     private void export(File file) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
-        writer.write("id,title,description,startDateTime,endDateTime");
+        // Update header, include reminder
+        writer.write("id,title,description,startDateTime,endDateTime,reminder");
         writer.newLine();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
@@ -119,12 +102,13 @@ public class ProfileController {
 
         for (Map.Entry<LocalDate, List<Events>> entry : eventsMap.entrySet()) {
             for (Events event : entry.getValue()) {
-                String line = String.format("%d,%s,%s,%s,%s",
+                String line = String.format("%d,%s,%s,%s,%s,%d",
                         id++,
                         escapeCsv(event.getTitle()),
                         escapeCsv(event.getDesc()),
                         event.getStartDateTime().format(formatter),
-                        event.getEndDateTime().format(formatter)
+                        event.getEndDateTime().format(formatter),
+                        event.getReminderMinutes() // Save reminder time
                 );
                 writer.write(line);
                 writer.newLine();
@@ -138,6 +122,7 @@ public class ProfileController {
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
         String line;
+        // Skip empty lines and headers
         while ((line = reader.readLine()) != null) {
             if (line.trim().isEmpty() || line.startsWith("id,") || line.startsWith(",")) {
                 continue;
@@ -148,7 +133,6 @@ public class ProfileController {
         eventsMap.clear();
         int count = 0;
 
-        // try different time format
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd MMM yyyy");
         DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -159,6 +143,7 @@ public class ProfileController {
             line = line.replaceFirst("^,+", "");
             String[] parts = line.split(",");
 
+            // Requires at least 5 fields (id, title, desc, start, end), reminder is the 6th
             if (parts.length >= 5) {
                 try {
                     int id = Integer.parseInt(parts[0].trim());
@@ -166,6 +151,16 @@ public class ProfileController {
                     String desc = parts[2].trim();
                     String startStr = parts[3].trim();
                     String endStr = parts[4].trim();
+
+                    // Try reading the 6th field (reminder), default to 0 if missing
+                    int reminderMins = 0;
+                    if (parts.length >= 6) {
+                        try {
+                            reminderMins = Integer.parseInt(parts[5].trim());
+                        } catch (Exception e) {
+                            reminderMins = 0;
+                        }
+                    }
 
                     java.time.LocalDateTime startDt;
                     java.time.LocalDateTime endDt;
@@ -178,8 +173,6 @@ public class ProfileController {
                             startDt = java.time.LocalDateTime.parse(startStr, formatter3);
                             endDt = java.time.LocalDateTime.parse(endStr, formatter3);
                         } catch (Exception e2) {
-
-                            //parse
                             LocalDate startDate = LocalDate.parse(startStr, formatter2);
                             LocalDate endDate = LocalDate.parse(endStr, formatter2);
                             startDt = startDate.atTime(9, 0);
@@ -187,7 +180,8 @@ public class ProfileController {
                         }
                     }
 
-                    Events event = new Events(id, title, desc, startDt, endDt);
+                    // Create event, including reminder
+                    Events event = new Events(id, title, desc, startDt, endDt, null, reminderMins);
 
                     LocalDate date = event.getStartDateTime().toLocalDate();
                     if (!eventsMap.containsKey(date)) {

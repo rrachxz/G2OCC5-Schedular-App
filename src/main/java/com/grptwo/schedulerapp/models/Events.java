@@ -8,21 +8,28 @@ public class Events {
     private String desc;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-    private Recurrance recurrence; // NEW: Add this field
+    private Recurrance recurrence;
+    private int reminderMinutes; //new: Store reminder time (in minutes)
 
     public Events(int id, String title, String desc, LocalDateTime startDateTime,
-                  LocalDateTime endDateTime, Recurrance recurrence) {
+                  LocalDateTime endDateTime, Recurrance recurrence, int reminderMinutes) {
         this.id = id;
         this.title = title;
         this.desc = desc;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.recurrence = recurrence;
+        this.reminderMinutes = reminderMinutes;
+    }
+
+    public Events(int id, String title, String desc, LocalDateTime startDateTime,
+                  LocalDateTime endDateTime, Recurrance recurrence) {
+        this(id, title, desc, startDateTime, endDateTime, recurrence, 0);
     }
 
     public Events(int id, String title, String desc, LocalDateTime startDateTime,
                   LocalDateTime endDateTime) {
-        this(id, title, desc, startDateTime, endDateTime, null);
+        this(id, title, desc, startDateTime, endDateTime, null, 0);
     }
 
     public int getId() {
@@ -71,5 +78,13 @@ public class Events {
 
     public void setRecurrence(Recurrance recurrence) {
         this.recurrence = recurrence;
+    }
+
+    public int getReminderMinutes() {
+        return reminderMinutes;
+    }
+
+    public void setReminderMinutes(int reminderMinutes) {
+        this.reminderMinutes = reminderMinutes;
     }
 }

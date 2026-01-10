@@ -38,7 +38,12 @@
                            HBox.hgrow="ALWAYS"/>
             </HBox>
 
-            <!-- Recurrence Section -->
+            <VBox spacing="8">
+                <Label text="Reminder" styleClass="field-label"/>
+                <ComboBox fx:id="reminderBox" promptText="Select reminder time"
+                          maxWidth="Infinity" styleClass="input-field"/>
+            </VBox>
+
             <VBox spacing="12">
                 <Label text="Repeat" styleClass="field-label"/>
                 <RadioButton fx:id="noRepeatRadio" text="Does not repeat" selected="true" styleClass="radio-btn"/>
@@ -47,7 +52,6 @@
                 <RadioButton fx:id="monthlyRadio" text="Monthly" styleClass="radio-btn"/>
             </VBox>
 
-            <!-- Recurrence options (hidden by default) -->
             <VBox fx:id="recurrenceOptionsBox" spacing="15" managed="false" visible="false"
                   style="-fx-background-color: #f5f5f5; -fx-padding: 15; -fx-background-radius: 8;">
 

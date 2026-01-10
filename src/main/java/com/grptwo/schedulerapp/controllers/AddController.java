@@ -21,6 +21,9 @@ public class AddController {
     @FXML private TextField endField;
     @FXML private Button createBtn;
 
+    // [NOTE] Ensure your FXML file has a ComboBox with fx:id="reminderBox"
+    @FXML private ComboBox<String> reminderBox;
+
     @FXML private RadioButton noRepeatRadio;
     @FXML private RadioButton dailyRadio;
     @FXML private RadioButton weeklyRadio;
@@ -50,6 +53,18 @@ public class AddController {
             recurrenceOptionsBox.setVisible(showOptions);
             recurrenceOptionsBox.setManaged(showOptions);
         });
+
+        // Initialize reminder options
+        if (reminderBox != null) {
+            reminderBox.getItems().addAll(
+                    "None",
+                    "15 minutes before",
+                    "30 minutes before",
+                    "1 hour before",
+                    "1 day before"
+            );
+            reminderBox.getSelectionModel().selectFirst();
+        }
     }
 
     public void setHomepageController(HomepageController controller) {
@@ -64,12 +79,11 @@ public class AddController {
         isEditMode = true;
         editingEvent = event;
 
-        // event details
+        // Populate existing information
         nameField.setText(event.getTitle());
         descField.setText(event.getDesc());
         datePicker.setValue(event.getStartDateTime().toLocalDate());
 
-        //times
         startField.setText(String.format("%02d:%02d",
                 event.getStartDateTime().getHour(),
                 event.getStartDateTime().getMinute()));
@@ -79,7 +93,10 @@ public class AddController {
 
         createBtn.setText("Update Event");
 
-        // repeat settings
+        // Set reminder selection (restore state)
+        setReminderSelection(event.getReminderMinutes());
+
+        // Set recurrence options (restore state)
         if (event.getRecurrence() != null) {
             Recurrance rec = event.getRecurrence();
 
@@ -98,7 +115,7 @@ public class AddController {
 
     @FXML
     public void onCreate() {
-        // check if fields are filled
+        // Simple validation
         if (nameField.getText().isEmpty()) {
             showError("Please enter event name");
             return;
@@ -113,12 +130,12 @@ public class AddController {
         }
 
         try {
-            // get event info
+            // Get basic info
             String name = nameField.getText();
             String desc = descField.getText();
             LocalDate date = datePicker.getValue();
 
-            // parse times
+            // Parse time
             String[] start = startField.getText().split(":");
             String[] end = endField.getText().split(":");
 
@@ -127,43 +144,33 @@ public class AddController {
             LocalDateTime endTime = LocalDateTime.of(date,
                     LocalTime.of(Integer.parseInt(end[0]), Integer.parseInt(end[1])));
 
-            // validate times
+            // Time validation logic
             if (endTime.isBefore(startTime) || endTime.equals(startTime)) {
                 showError("End time must be after start time");
                 return;
             }
-            List<Events> eventsOnThatDay = homepageController.getEventsMap().get(date);
 
-            if (eventsOnThatDay != null) {
-                for (Events e : eventsOnThatDay) {
-                    if (isEditMode && e == editingEvent) {
-                        continue;
-                    }
-                    if (startTime.isBefore(e.getEndDateTime()) && endTime.isAfter(e.getStartDateTime())) {
-                        showError("Time clash detected!\nOverlaps with: " + e.getTitle());
-                        return;
-                    }
-                }
-            }
-
-            // get repeat settings
+            // Get recurrence settings
             Recurrance repeat = getRepeatSettings();
 
-            // create event
-            newEvent = new Events(0, name, desc, startTime, endTime, repeat);
+            // Get reminder settings
+            int reminderMins = getReminderMinutes();
 
-            // save event
+            // Create new event object (using new constructor with reminder)
+            newEvent = new Events(0, name, desc, startTime, endTime, repeat, reminderMins);
+
+            // Save logic
             if (isEditMode) {
                 homepageController.updateEvent(editingEvent, newEvent);
             } else {
                 if (repeat != null) {
-                    // create multipe events
+                    // Create multiple repeating events
                     List<Events> allEvents = makeRepeatingEvents(newEvent);
                     for (Events e : allEvents) {
                         homepageController.addEvent(e);
                     }
                 } else {
-                    // create single event
+                    // Create single event
                     homepageController.addEvent(newEvent);
                 }
             }
@@ -172,22 +179,42 @@ public class AddController {
 
         } catch (Exception e) {
             showError("Invalid time. Use HH:mm like 09:00");
+            e.printStackTrace();
         }
     }
 
-    // get repeat settings from form
+    // Helper method: Get minutes from ComboBox
+    private int getReminderMinutes() {
+        if (reminderBox == null) return 0;
+        String val = reminderBox.getValue();
+        if (val == null || val.equals("None")) return 0;
+        if (val.contains("15")) return 15;
+        if (val.contains("30")) return 30;
+        if (val.contains("1 hour")) return 60;
+        if (val.contains("1 day")) return 1440;
+        return 0;
+    }
+
+    // Helper method: Set ComboBox selection based on minutes
+    private void setReminderSelection(int minutes) {
+        if (reminderBox == null) return;
+        if (minutes == 15) reminderBox.setValue("15 minutes before");
+        else if (minutes == 30) reminderBox.setValue("30 minutes before");
+        else if (minutes == 60) reminderBox.setValue("1 hour before");
+        else if (minutes == 1440) reminderBox.setValue("1 day before");
+        else reminderBox.setValue("None");
+    }
+
     private Recurrance getRepeatSettings() {
         if (noRepeatRadio.isSelected()) {
             return null;
         }
 
-        // which repeat type
         int days = 0;
         if (dailyRadio.isSelected()) days = 1;
         if (weeklyRadio.isSelected()) days = 7;
         if (monthlyRadio.isSelected()) days = 30;
 
-        // how many times
         Integer times = null;
         if (!timesField.getText().isEmpty()) {
             try {
@@ -197,7 +224,6 @@ public class AddController {
             }
         }
 
-        // until when?
         LocalDateTime until = null;
         if (endDatePicker.getValue() != null) {
             until = endDatePicker.getValue().atTime(23, 59);
@@ -206,7 +232,6 @@ public class AddController {
         return new Recurrance(0, days, times, until);
     }
 
-    // make multiple repeating events
     private List<Events> makeRepeatingEvents(Events event) {
         List<Events> events = new ArrayList<>();
         Recurrance repeat = event.getRecurrence();
@@ -215,7 +240,6 @@ public class AddController {
         LocalDateTime end = event.getEndDateTime();
         long minutes = java.time.Duration.between(start, end).toMinutes();
 
-        // how many to create?
         int maxEvents = 5;
         LocalDateTime stopDate = start.plusYears(1);
 
@@ -227,21 +251,21 @@ public class AddController {
             stopDate = start.plusYears(2);
         }
 
-        // create events
         int count = 0;
         while (count < maxEvents && start.isBefore(stopDate)) {
+            // Ensure reminderMinutes is included when copying events
             Events newEvent = new Events(
                     event.getId() + count,
                     event.getTitle(),
                     event.getDesc(),
                     start,
                     end,
-                    repeat
+                    repeat,
+                    event.getReminderMinutes() // Ensure reminder time is copied
             );
 
             events.add(newEvent);
 
-            // Next date
             start = start.plusDays(repeat.getInterval());
             end = start.plusMinutes(minutes);
             count++;
@@ -255,9 +279,5 @@ public class AddController {
         alert.setTitle("Warning");
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    public Events getEvent() {
-        return newEvent;
     }
 }
