@@ -36,6 +36,14 @@
         </HBox>
     </VBox>
 
+    <HBox spacing="8" alignment="CENTER_LEFT" styleClass="wrapper">
+        <Label text="On date:"/>
+        <DatePicker fx:id="datePickerSingle" />
+        <Button text="Search by Date"
+                onAction="#onSearchByDate"
+                styleClass="result-edit-btn" />
+    </HBox>
+
     <ScrollPane styleClass="search-scroll"
                 fitToWidth="true"
                 hbarPolicy="NEVER"

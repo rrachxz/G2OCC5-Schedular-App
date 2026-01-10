@@ -150,10 +150,14 @@ public class CalendarController {
         cell.setOnMouseClicked(event -> {
             selectedDate = date;
             updateCal();
+
             if (onDateChange != null) {
                 onDateChange.run();
             }
-            showAddDialog(date);
+
+            if (event.getClickCount() == 2) {
+                showAddDialog(date);
+            }
         });
 
         GridPane.setHgrow(cell, Priority.ALWAYS);

@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b205a62f-181a-4136-82cd-4111ee0b320e" name="Changes" comment="added search feature">
+    <list default="true" id="b205a62f-181a-4136-82cd-4111ee0b320e" name="Changes" comment="set width and height for all the app pages">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/HomepageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/HomepageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/NavbarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/NavbarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/ProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/profiles.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/profiles.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/SearchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/search.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/search.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +51,10 @@
         <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -176,11 +177,62 @@
       <option name="project" value="LOCAL" />
       <updated>1767888593649</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="backup and restore">
+      <option name="closed" value="true" />
+      <created>1767921175811</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1767921175811</updated>
+    </task>
+    <task id="LOCAL-00009" summary="backup and restore">
+      <option name="closed" value="true" />
+      <created>1767921244930</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1767921244930</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: recurrance">
+      <option name="closed" value="true" />
+      <created>1767944275758</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1767944275758</updated>
+    </task>
+    <task id="LOCAL-00011" summary="minor updates">
+      <option name="closed" value="true" />
+      <created>1767952775507</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1767952775507</updated>
+    </task>
+    <task id="LOCAL-00012" summary="set width and height for all the app pages">
+      <option name="closed" value="true" />
+      <created>1767960002044</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1767960002044</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
@@ -190,6 +242,10 @@
     <MESSAGE value="fix the problem of initializing width and height where there are some conflict in Controller file and Main file" />
     <MESSAGE value="Version(original)" />
     <MESSAGE value="added search feature" />
-    <option name="LAST_COMMIT_MESSAGE" value="added search feature" />
+    <MESSAGE value="backup and restore" />
+    <MESSAGE value="feat: recurrance" />
+    <MESSAGE value="minor updates" />
+    <MESSAGE value="set width and height for all the app pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="set width and height for all the app pages" />
   </component>
 </project>

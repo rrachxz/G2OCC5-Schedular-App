@@ -5,41 +5,73 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.grptwo.schedulerapp.controllers.AddController"
-      stylesheets="@../css/add.css"
-      styleClass="root" alignment="TOP_CENTER">
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.grptwo.schedulerapp.controllers.AddController"
+            stylesheets="@../css/add.css"
+            fitToWidth="true"
+            hbarPolicy="NEVER">
 
-    <padding>
-        <Insets top="30" right="30" bottom="30" left="30"/>
-    </padding>
+    <VBox styleClass="root" alignment="TOP_CENTER">
 
-    <Text text="Add New Event" styleClass="title"/>
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/>
+        </padding>
 
-    <VBox spacing="20">
-        <VBox.margin>
-            <Insets top="30"/>
-        </VBox.margin>
+        <Text text="Add New Event" styleClass="title"/>
 
-        <TextField fx:id="nameField" promptText="Event name" styleClass="input-field"/>
-        <TextField fx:id="descField" promptText="Description" styleClass="input-field"/>
-
-        <DatePicker fx:id="datePicker" promptText="Date" styleClass="date-picker"
-                    prefWidth="Infinity"/>
-
-        <HBox spacing="15">
-            <TextField fx:id="startField" promptText="Start time" styleClass="time-field"
-                       HBox.hgrow="ALWAYS"/>
-            <TextField fx:id="endField" promptText="End time" styleClass="time-field"
-                       HBox.hgrow="ALWAYS"/>
-        </HBox>
-
-        <Button fx:id="createBtn" text="Create Event" styleClass="create-btn"
-                onAction="#onCreate" maxWidth="Infinity">
+        <VBox spacing="20">
             <VBox.margin>
-                <Insets top="10"/>
+                <Insets top="30"/>
             </VBox.margin>
-        </Button>
+
+            <TextField fx:id="nameField" promptText="Event name" styleClass="input-field"/>
+            <TextField fx:id="descField" promptText="Description" styleClass="input-field"/>
+
+            <DatePicker fx:id="datePicker" promptText="Date" styleClass="date-picker"
+                        prefWidth="Infinity"/>
+
+            <HBox spacing="15">
+                <TextField fx:id="startField" promptText="Start time" styleClass="time-field"
+                           HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="endField" promptText="End time" styleClass="time-field"
+                           HBox.hgrow="ALWAYS"/>
+            </HBox>
+
+            <!-- Recurrence Section -->
+            <VBox spacing="12">
+                <Label text="Repeat" styleClass="field-label"/>
+                <RadioButton fx:id="noRepeatRadio" text="Does not repeat" selected="true" styleClass="radio-btn"/>
+                <RadioButton fx:id="dailyRadio" text="Daily" styleClass="radio-btn"/>
+                <RadioButton fx:id="weeklyRadio" text="Weekly" styleClass="radio-btn"/>
+                <RadioButton fx:id="monthlyRadio" text="Monthly" styleClass="radio-btn"/>
+            </VBox>
+
+            <!-- Recurrence options (hidden by default) -->
+            <VBox fx:id="recurrenceOptionsBox" spacing="15" managed="false" visible="false"
+                  style="-fx-background-color: #f5f5f5; -fx-padding: 15; -fx-background-radius: 8;">
+
+                <VBox spacing="8">
+                    <Label text="Number of times (optional)" styleClass="field-label"/>
+                    <TextField fx:id="timesField" promptText="e.g., 10" styleClass="input-field"/>
+                </VBox>
+
+                <VBox spacing="8">
+                    <Label text="End date (optional)" styleClass="field-label"/>
+                    <DatePicker fx:id="endDatePicker" promptText="Select end date" maxWidth="Infinity" styleClass="input-field"/>
+                </VBox>
+
+                <Label text="* Leave both empty to repeat 5 times by default"
+                       style="-fx-font-size: 11px; -fx-text-fill: gray;"/>
+            </VBox>
+
+            <Button fx:id="createBtn" text="Create Event" styleClass="create-btn"
+                    onAction="#onCreate" maxWidth="Infinity">
+                <VBox.margin>
+                    <Insets top="10"/>
+                </VBox.margin>
+            </Button>
+        </VBox>
     </VBox>
-</VBox>
+
+</ScrollPane>
