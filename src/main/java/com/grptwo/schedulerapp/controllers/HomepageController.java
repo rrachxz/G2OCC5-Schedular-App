@@ -6,8 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -22,8 +24,14 @@ public class HomepageController {
 
     private final Map<LocalDate, List<Events>> eventsMap = new HashMap<>();
 
+    // UPDATED: Path to your persistent storage file
+    private final String SAVE_FILE = "events.csv";
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+
     @FXML
     public void initialize() {
+        loadDataOnStartup();
+
         calendarController.init(eventsMap, this::onDateChange);
         calendarController.setOnAddEventRequest(this::openAddPage);
         eventsController.init(eventsMap, this::onEventsUpdate, this::openEditPage);
@@ -32,6 +40,63 @@ public class HomepageController {
 
         // Trigger the notification check when the app launches
         Platform.runLater(this::checkNextEventOnLaunch);
+    }
+    private void loadDataOnStartup() {
+        File file = new File(SAVE_FILE);
+        if (!file.exists()) return;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            reader.readLine(); // Skip header line
+
+            while ((line = reader.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+                String[] p = line.split(",");
+                if (p.length >= 6) {
+                    int id = Integer.parseInt(p[0]);
+                    String title = p[1];
+                    String desc = p[2];
+                    LocalDateTime start = LocalDateTime.parse(p[3], formatter);
+                    LocalDateTime end = LocalDateTime.parse(p[4], formatter);
+                    int reminder = Integer.parseInt(p[5]);
+
+                    Events event = new Events(id, title, desc, start, end, null, reminder);
+                    LocalDate date = start.toLocalDate();
+                    eventsMap.computeIfAbsent(date, k -> new ArrayList<>()).add(event);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to load events: " + e.getMessage());
+        }
+    }
+
+    private void saveData() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(SAVE_FILE))) {
+            writer.write("id,title,description,startDateTime,endDateTime,reminder");
+            writer.newLine();
+
+            for (List<Events> list : eventsMap.values()) {
+                for (Events event : list) {
+                    String line = String.format("%d,%s,%s,%s,%s,%d",
+                            event.getId(),
+                            escapeCsv(event.getTitle()),
+                            escapeCsv(event.getDesc()),
+                            event.getStartDateTime().format(formatter),
+                            event.getEndDateTime().format(formatter),
+                            event.getReminderMinutes()
+                    );
+                    writer.write(line);
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String escapeCsv(String val) {
+        if (val == null) return "";
+        return val.replace(",", " "); // Simple escape to prevent breaking CSV columns
     }
 
     // [UPDATED METHOD]: Checks for events based on the user's specific reminder setting
@@ -104,6 +169,7 @@ public class HomepageController {
     public void onEventsUpdate() {
         calendarController.updateCal();
         eventsController.updateEvents(calendarController.getSelected());
+        saveData();
     }
 
     public void openAddPage() {
@@ -133,7 +199,7 @@ public class HomepageController {
 
         // Add event to map
         eventsMap.get(date).add(event);
-
+        saveData(); // Auto Save
         // Update UI
         onEventsUpdate();
         eventsController.updateEvents(calendarController.getSelected());
@@ -164,7 +230,7 @@ public class HomepageController {
 
         // Add new event
         eventsMap.get(date).add(newEvent);
-
+        saveData();
         // Update UI
         onEventsUpdate();
         eventsController.updateEvents(calendarController.getSelected());
