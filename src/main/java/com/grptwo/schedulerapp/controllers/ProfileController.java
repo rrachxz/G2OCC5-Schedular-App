@@ -6,6 +6,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ButtonBar;
 
 import java.awt.*;
 import java.io.*;
@@ -14,6 +16,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class ProfileController {
 
@@ -57,7 +60,7 @@ public class ProfileController {
         if (file != null) {
             try {
                 export(file);
-                statusLabel.setText("Backup completed to " + file.getName());
+                statusLabel.setText("Backup completed to " + file.getAbsolutePath());
                 showInfo("Backup successful!", "Events saved to:\n" + file.getAbsolutePath());
             } catch (IOException e) {
                 showAlert("Backup failed: " + e.getMessage());
@@ -75,6 +78,25 @@ public class ProfileController {
         File file = fileChooser.showOpenDialog(restoreBtn.getScene().getWindow());
 
         if (file != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Restore Options");
+            alert.setHeaderText("Choose Import Method");
+            alert.setContentText("Append: Add to current events.\nOverwrite: Delete all current events first.");
+
+            ButtonType appendBtn = new ButtonType("Append");
+            ButtonType overwriteBtn = new ButtonType("Overwrite");
+            ButtonType cancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(appendBtn, overwriteBtn, cancelBtn);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isEmpty() || result.get() == cancelBtn) return; // Stop if user cancels
+
+            // If they chose Overwrite, we clear the map before importing
+            if (result.get() == overwriteBtn) {
+                eventsMap.clear();
+            }
             try {
                 int count = importFromCSV(file);
                 statusLabel.setText("Restored " + count + " events from " + file.getName());
@@ -130,7 +152,6 @@ public class ProfileController {
             break;
         }
 
-        eventsMap.clear();
         int count = 0;
 
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
