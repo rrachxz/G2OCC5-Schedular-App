@@ -17,6 +17,7 @@ public class NavbarController {
     public Button searchBtn;
     public Button bellBtn;
     public Button profileBtn;
+    public Button statsBtn;
 
     private Node homepageContent;
     private HomepageController homepageController;
@@ -193,6 +194,12 @@ public class NavbarController {
 
         if (activeButton != null && !activeButton.getStyleClass().contains("nav-active")) {
             activeButton.getStyleClass().add("nav-active");
+        }
+    }
+    @FXML
+    public void onStatsClick() {
+        if (homepageController != null) {
+            homepageController.showStatistics();
         }
     }
 }

@@ -243,4 +243,64 @@ public class HomepageController {
     public Map<LocalDate, List<Events>> getEventsMap() {
         return eventsMap;
     }
+
+    // event statistics
+    public void showStatistics() {
+        int totalUpcoming = 0;
+        int totalThisWeek = 0;
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime endOfWeek = now.plusDays(7);
+
+        // Map to count events per day of the week
+        Map<java.time.DayOfWeek, Integer> dayCounts = new HashMap<>();
+        for (java.time.DayOfWeek day : java.time.DayOfWeek.values()) {
+            dayCounts.put(day, 0);
+        }
+        boolean hasAnyEvents = !eventsMap.isEmpty();
+
+        for (Map.Entry<LocalDate, List<Events>> entry : eventsMap.entrySet()) {
+            LocalDate date = entry.getKey();
+            List<Events> events = entry.getValue();
+            int count = events.size();
+
+            // 1. Count Upcoming (any event today or in future)
+            if (!date.isBefore(now.toLocalDate())) {
+                totalUpcoming += count;
+            }
+
+            // 2. Count for "This Week" (next 7 days)
+            if (!date.isBefore(now.toLocalDate()) && date.isBefore(endOfWeek.toLocalDate())) {
+                totalThisWeek += count;
+            }
+
+            // 3. Count for Busiest Day
+            java.time.DayOfWeek dayOfWeek = date.getDayOfWeek();
+            dayCounts.put(dayOfWeek, dayCounts.get(dayOfWeek) + count);
+        }
+
+        // Find the busiest day
+        String busiestDayResult;
+        // Check if any events were actually counted in the dayCounts map
+        int totalEventCount = dayCounts.values().stream().mapToInt(Integer::intValue).sum();
+
+        if (totalEventCount == 0) {
+            busiestDayResult = "-";
+        } else {
+            java.time.DayOfWeek busiestDay = dayCounts.entrySet().stream()
+                    .max(Map.Entry.comparingByValue())
+                    .get().getKey();
+            busiestDayResult = busiestDay.toString() + " (" + dayCounts.get(busiestDay) + " events)";
+        }
+
+        // Display the results
+        Alert statsAlert = new Alert(Alert.AlertType.INFORMATION);
+        statsAlert.setTitle("Event Statistics");
+        statsAlert.setHeaderText("Your Calendar Insights");
+        statsAlert.setContentText(
+                "Total Upcoming Events: " + totalUpcoming +
+                        "\nEvents in the next 7 days: " + totalThisWeek +
+                        "\nBusiest Day of the Week: " + busiestDayResult
+        );
+        statsAlert.showAndWait();
+    }
 }

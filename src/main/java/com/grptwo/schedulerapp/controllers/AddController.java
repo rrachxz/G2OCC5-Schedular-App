@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AddController {
 
@@ -158,6 +159,47 @@ public class AddController {
 
             // Create new event object (using new constructor with reminder)
             newEvent = new Events(0, name, desc, startTime, endTime, repeat, reminderMins);
+
+            // conflict detection
+            boolean hasConflict = false;
+            String conflictDetails = "";
+
+            List<Events> eventsToCheck = new ArrayList<>();
+            if (repeat != null) {
+                eventsToCheck = makeRepeatingEvents(newEvent);
+            } else {
+                eventsToCheck.add(newEvent);
+            }
+            for (Events pEvent : eventsToCheck) {
+                LocalDate checkDate = pEvent.getStartDateTime().toLocalDate();
+                List<Events> eventsOnThatDay = homepageController.getEventsMap().get(checkDate);
+
+                if (eventsOnThatDay != null) {
+                    for (Events e : eventsOnThatDay) {
+                        if (isEditMode && editingEvent != null && e.getId() == editingEvent.getId()) {
+                            continue;
+                        }
+                        if (pEvent.getStartDateTime().isBefore(e.getEndDateTime()) &&
+                                pEvent.getEndDateTime().isAfter(e.getStartDateTime())) {
+                            hasConflict = true;
+                            showError("Time clash detected on " + checkDate + "!\nOverlaps with: " + e.getTitle());
+                            break;
+                        }
+                    }
+                }
+                if (hasConflict) break;
+            }
+            if (hasConflict) {
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                confirm.setTitle("Conflict Warning");
+                confirm.setHeaderText("Time Clash Detected!");
+                confirm.setContentText(conflictDetails + "Do you want to add this event anyway?");
+
+                Optional<ButtonType> result = confirm.showAndWait();
+                if (result.isEmpty() || result.get() != ButtonType.OK) {
+                    return; // User cancelled or clicked No, so stop here
+                }
+            }
 
             // Save logic
             if (isEditMode) {
