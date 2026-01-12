@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b205a62f-181a-4136-82cd-4111ee0b320e" name="Changes" comment="set width and height for all the app pages" />
+    <list default="true" id="b205a62f-181a-4136-82cd-4111ee0b320e" name="Changes" comment="reverted back to original">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/grptwo/schedulerapp/controllers/SearchController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -213,11 +216,46 @@
       <option name="project" value="LOCAL" />
       <updated>1767960002044</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="reverted back to original">
+      <option name="closed" value="true" />
+      <created>1768196087004</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1768196087004</updated>
+    </task>
+    <task id="LOCAL-00014" summary="reverted back to original">
+      <option name="closed" value="true" />
+      <created>1768196160852</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1768196160852</updated>
+    </task>
+    <task id="LOCAL-00015" summary="reverted back to original">
+      <option name="closed" value="true" />
+      <created>1768196197395</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1768196197395</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
@@ -231,6 +269,7 @@
     <MESSAGE value="feat: recurrance" />
     <MESSAGE value="minor updates" />
     <MESSAGE value="set width and height for all the app pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="set width and height for all the app pages" />
+    <MESSAGE value="reverted back to original" />
+    <option name="LAST_COMMIT_MESSAGE" value="reverted back to original" />
   </component>
 </project>
