@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b205a62f-181a-4136-82cd-4111ee0b320e" name="Changes" comment="reverted back to original">
+    <list default="true" id="b205a62f-181a-4136-82cd-4111ee0b320e" name="Changes" comment="styling datepicker in search.fxml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/events.csv" beforeDir="false" afterPath="$PROJECT_DIR$/events.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/search.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/css/search.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/search.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/grptwo/schedulerapp/views/search.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,7 +241,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768196197395</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="styling datepicker in search.fxml">
+      <option name="closed" value="true" />
+      <created>1768211516683</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1768211516683</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,6 +279,7 @@
     <MESSAGE value="minor updates" />
     <MESSAGE value="set width and height for all the app pages" />
     <MESSAGE value="reverted back to original" />
-    <option name="LAST_COMMIT_MESSAGE" value="reverted back to original" />
+    <MESSAGE value="styling datepicker in search.fxml" />
+    <option name="LAST_COMMIT_MESSAGE" value="styling datepicker in search.fxml" />
   </component>
 </project>

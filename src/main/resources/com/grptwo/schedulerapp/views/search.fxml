@@ -33,16 +33,15 @@
             <TextField fx:id="searchField"
                        promptText="Search for events..."
                        styleClass="search-field"
+                       onAction="#onSearch"
                        HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <HBox spacing="10" alignment="CENTER_LEFT" styleClass="filter-row">
             <Label text="Date (optional):"/>
-            <DatePicker fx:id="datePicker"/>
-
-            <Button text="Search"
-                    onAction="#onSearch"
-                    styleClass="result-edit-btn"/>
+            <DatePicker fx:id="datePicker"
+                        promptText="Select date"
+                        onAction="#onSearch"/>
         </HBox>
     </VBox>
 
