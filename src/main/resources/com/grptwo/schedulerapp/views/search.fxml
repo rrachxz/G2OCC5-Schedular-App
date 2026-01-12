@@ -26,23 +26,25 @@
         </padding>
 
         <HBox spacing="0" alignment="CENTER_LEFT" styleClass="wrapper">
-            <FontIcon iconLiteral="bi-search" iconSize="18" styleClass="search-icon"/>
+            <FontIcon iconLiteral="bi-search"
+                      iconSize="18"
+                      styleClass="search-icon"/>
 
             <TextField fx:id="searchField"
                        promptText="Search for events..."
                        styleClass="search-field"
-                       HBox.hgrow="ALWAYS"
-                       onAction="#onSearch"/>
+                       HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="filter-row">
+            <Label text="Date (optional):"/>
+            <DatePicker fx:id="datePicker"/>
+
+            <Button text="Search"
+                    onAction="#onSearch"
+                    styleClass="result-edit-btn"/>
         </HBox>
     </VBox>
-
-    <HBox spacing="8" alignment="CENTER_LEFT" styleClass="wrapper">
-        <Label text="On date:"/>
-        <DatePicker fx:id="datePickerSingle" />
-        <Button text="Search by Date"
-                onAction="#onSearchByDate"
-                styleClass="result-edit-btn" />
-    </HBox>
 
     <ScrollPane styleClass="search-scroll"
                 fitToWidth="true"
