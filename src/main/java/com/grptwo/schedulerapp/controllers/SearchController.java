@@ -3,26 +3,21 @@ package com.grptwo.schedulerapp.controllers;
 import com.grptwo.schedulerapp.models.Events;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class SearchController {
 
     @FXML private TextField searchField;
+    @FXML private DatePicker datePicker;
     @FXML private VBox resultsContainer;
-    @FXML private DatePicker datePickerSingle;
 
     private Map<LocalDate, List<Events>> eventsMap;
     private Consumer<Events> onEdit;
@@ -46,84 +41,59 @@ public class SearchController {
 
     @FXML
     public void onSearch() {
-        String searchText = searchField.getText().trim();
-
-        // Check if empty
-        if (searchText.isEmpty()) {
-            showMessage("Enter a search");
-            return;
-        }
-
-        if (eventsMap == null) {
+        if (eventsMap == null || eventsMap.isEmpty()) {
             showMessage("No events available");
             return;
         }
 
-        List<Events> foundEvents = findEvents(searchText);
-
-        if (foundEvents.isEmpty()) {
-            showMessage("No events found for \"" + searchText + "\"");
-        } else {
-            showResults(foundEvents);
-        }
-    }
-
-    @FXML
-    public void onSearchByDate() {
-        LocalDate date = datePickerSingle.getValue();
-        if (date == null) {
-            showMessage("Select a date");
-            return;
-        }
+        String searchText = searchField.getText().trim().toLowerCase();
+        LocalDate selectedDate = datePicker.getValue();
 
         List<Events> results = new ArrayList<>();
-        List<Events> dayEvents = eventsMap != null ? eventsMap.get(date) : null;
-        if (dayEvents != null) {
-            results.addAll(dayEvents);
-        }
 
-        if (results.isEmpty()) {
-            showMessage("No events found on " + date);
-        } else {
-            showResults(results);
-        }
-    }
+        for (Map.Entry<LocalDate, List<Events>> entry : eventsMap.entrySet()) {
+            LocalDate eventDate = entry.getKey();
 
-    private List<Events> findEvents(String searchText) {
-        List<Events> results = new ArrayList<>();
-        String search = searchText.toLowerCase();
+            if (selectedDate != null && !eventDate.equals(selectedDate)) {
+                continue;
+            }
 
-        for (LocalDate date : eventsMap.keySet()) {
-            List<Events> dayEvents = eventsMap.get(date);
+            for (Events event : entry.getValue()) {
 
-            for (Events event : dayEvents) {
-                if (event.getTitle().toLowerCase().contains(search)) {
+                if (searchText.isEmpty()) {
                     results.add(event);
                     continue;
                 }
 
-                String desc = event.getDesc();
-                if (desc != null && desc.toLowerCase().contains(search)) {
+                boolean matchTitle = event.getTitle()
+                        .toLowerCase()
+                        .contains(searchText);
+
+                boolean matchDesc = event.getDesc() != null &&
+                        event.getDesc().toLowerCase().contains(searchText);
+
+                if (matchTitle || matchDesc) {
                     results.add(event);
                 }
             }
         }
 
-        return results;
+        if (results.isEmpty()) {
+            showMessage("No events found");
+        } else {
+            showResults(results);
+        }
     }
 
     private void showResults(List<Events> events) {
         resultsContainer.getChildren().clear();
 
-        // show count
         Label count = new Label(events.size() + " event(s) found");
         count.getStyleClass().add("results-count");
         resultsContainer.getChildren().add(count);
 
-        // show each event
         for (Events event : events) {
-            VBox eventCard = makeEventCard(event);
-            resultsContainer.getChildren().add(eventCard);
+            resultsContainer.getChildren().add(makeEventCard(event));
         }
     }
 
@@ -131,22 +101,25 @@ public class SearchController {
         VBox card = new VBox(8);
         card.getStyleClass().add("result-card");
 
-        // date
         LocalDate eventDate = event.getStartDateTime().toLocalDate();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
+        DateTimeFormatter dateFormat =
+                DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
+
         Label dateLabel = new Label(eventDate.format(dateFormat));
         dateLabel.getStyleClass().add("result-date");
 
-        // time with dot
         HBox timeBox = new HBox(8);
         timeBox.setAlignment(Pos.CENTER_LEFT);
 
         Circle dot = new Circle(4);
         dot.getStyleClass().add("result-dot");
 
-        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter timeFormat =
+                DateTimeFormatter.ofPattern("HH:mm");
+
         String start = event.getStartDateTime().format(timeFormat);
         String end = event.getEndDateTime().format(timeFormat);
+
         Label timeLabel = new Label(start + " - " + end);
         timeLabel.getStyleClass().add("result-time");
 
@@ -156,12 +129,10 @@ public class SearchController {
         titleLabel.getStyleClass().add("result-title");
         titleLabel.setWrapText(true);
 
-        VBox content = new VBox(5);
-        content.getChildren().addAll(timeBox, titleLabel);
+        VBox content = new VBox(5, timeBox, titleLabel);
 
-        String desc = event.getDesc();
-        if (desc != null && !desc.isEmpty()) {
-            Label descLabel = new Label(desc);
+        if (event.getDesc() != null && !event.getDesc().isEmpty()) {
+            Label descLabel = new Label(event.getDesc());
             descLabel.getStyleClass().add("result-desc");
             descLabel.setWrapText(true);
             content.getChildren().add(descLabel);
