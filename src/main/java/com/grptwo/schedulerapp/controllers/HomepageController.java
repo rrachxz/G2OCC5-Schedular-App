@@ -25,7 +25,7 @@ public class HomepageController {
     private final Map<LocalDate, List<Events>> eventsMap = new HashMap<>();
 
     // UPDATED: Path to your persistent storage file
-    private final String SAVE_FILE = "data/events.csv";
+    private final String SAVE_FILE = "src/main/resources/com/grptwo/schedulerapp/data/events.csv";
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
     @FXML
