@@ -22,7 +22,6 @@ public class AddController {
     @FXML private TextField endField;
     @FXML private Button createBtn;
 
-    // [NOTE] Ensure your FXML file has a ComboBox with fx:id="reminderBox"
     @FXML private ComboBox<String> reminderBox;
 
     @FXML private RadioButton noRepeatRadio;
@@ -237,7 +236,6 @@ public class AddController {
         return 0;
     }
 
-    // Helper method: Set ComboBox selection based on minutes
     private void setReminderSelection(int minutes) {
         if (reminderBox == null) return;
         if (minutes == 15) reminderBox.setValue("15 minutes before");
